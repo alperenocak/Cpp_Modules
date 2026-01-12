@@ -15,7 +15,10 @@
 int main(int ac, char **av)
 {
     if (ac < 2)
+    {
+        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *"<< std::endl;
         return 0;
+    }
     std::string s;
     for (int count = 1; count < ac; count++)
     {
@@ -23,9 +26,7 @@ int main(int ac, char **av)
         {
             s += (unsigned char)std::toupper(av[count][i]);
         }
-        if(count != ac - 1)
-            s += ' ';
     }
-    std::cout<<s<<std::endl;
+    std::cout << s << std::endl;
     return 0;
 }
