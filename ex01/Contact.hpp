@@ -10,26 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once 
+#ifndef CONTACT_HPP 
+#define CONTACT_HPP
+
 #include <string>
+
 class Contact
 {
 private:
-
-    std::string person[5];
-
+    std::string _first;
+    std::string _last;
+    std::string _nick;
+    std::string _phone;
+    std::string _secret;
 public:
+    void setFirst(std::string value);
+    void setLast(std::string value);
+    void setNick(std::string value);
+    void setPhone(std::string value);
+    void setSecret(std::string value);
+    
+    std::string getFirst(void) const;
+    std::string getLast(void) const;
+    std::string getNick(void) const;
+    std::string getPhone(void) const;
+    std::string getSecret(void) const;
+    
     Contact();
-    std::string getPerson(int i);
     ~Contact();
 };
 
-Contact::Contact()
-{
-
-}
-
-Contact::~Contact()
-{
-
-}
+#endif

@@ -10,4 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "PhoneBook.hpp"
+#include <iostream>
 
+PhoneBook::PhoneBook()
+{
+    _index = 0;
+    _i = 0;
+}
+
+PhoneBook::~PhoneBook()
+{
+}
+
+void addContact()
+{
+    
+}

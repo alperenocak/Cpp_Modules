@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-01-09 13:48:02 by yuocak            #+#    #+#             */
-/*   Updated: 2026-01-09 13:48:02 by yuocak           ###   ########.fr       */
+/*   Created: 2026-01-13 11:13:17 by yuocak            #+#    #+#             */
+/*   Updated: 2026-01-13 11:13:17 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
-#include "Contact.hpp"
+#include "PhoneBook.hpp"
 
-class PhoneBook
+int main()
 {
-private:
-    Contact _persons[8];
-    int     _i;
-    int     _index;
-
-public:
-    void    addContact();
-    void    searchContact() const;
-    PhoneBook();
-    ~PhoneBook();
-};
-
-
-#endif
+    
+}
