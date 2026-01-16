@@ -44,25 +44,32 @@ std::string trim_string(std::string value)
 void PhoneBook::addContact()
 {
     std::string input;
-
+    
     std::cout<<"First Name: ";
-    std::getline(std::cin, input);
+    if(!std::getline(std::cin, input))
+        return;
+    
     _persons[_index].setFirst(input);
 
     std::cout<<"Last Name: ";
-    std::getline(std::cin, input);
+    if(!std::getline(std::cin, input))
+        return;
     _persons[_index].setLast(input);
 
     std::cout<<"Nickname: ";
-    std::getline(std::cin, input);
+    if(!std::getline(std::cin, input))
+        return ;
     _persons[_index].setNick(input);
 
+    
     std::cout<<"Phone Number: ";
-    std::getline(std::cin, input);
+    if(std::getline(std::cin, input))
+        return ;
     _persons[_index].setPhone(input);
 
     std::cout<<"Dark Secret: ";
-    std::getline(std::cin, input);
+    if (std::getline(std::cin, input))
+        return;
     _persons[_index].setSecret(input);
 
     if (_count < 8)
@@ -92,7 +99,7 @@ void PhoneBook::searchContact() const
         std::cout<<"PhoneBook is empty"<<std::endl;
         return ;
     }
-
+    
     std::cout<<"|     index|     first|      last|      nick|"<<std::endl;
     std::cout<<"|-------------------------------------------|"<<std::endl;
     for (int i = 0; i < _count; i++)
@@ -108,14 +115,24 @@ void PhoneBook::searchContact() const
         << "|"<< std::endl;
         std::cout<<"|-------------------------------------------|"<<std::endl;
     }
-
+    /*------------------------------------------------------------*/
     std::string input;
-    getline(std::cin, input);
+
+    std::cout<<
+    if (!getline(std::cin, input))
+        return ;
+    if (input.empty())
+    {
+        std::cout<<"Write something!!!!!!!!!!!"<<std::endl;
+        return ;
+    }
     if (invalid_input(input))
     {
         std::cout<<"Invalid input"<< std::endl;
         return ;
     }
+
+    
     return ;
 }
 
