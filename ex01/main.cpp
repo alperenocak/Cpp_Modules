@@ -12,10 +12,15 @@
 
 #include "PhoneBook.hpp"
 
-int main()
+int main(int ac, char **av)
 {
     PhoneBook phonebook;
-
-    phonebook.addContact();
+    while (1)
+    {
+        if (av[1] == "ADD")
+            phonebook.addContact();
+        else if[av[1]]
+    }
+    
     phonebook.searchContact();
 }

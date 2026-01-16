@@ -25,6 +25,22 @@ PhoneBook::~PhoneBook()
 {
 }
 
+std::string trim_string(std::string value)
+{
+    std::string new_value;
+
+    if((int)value.length() > 10)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            new_value += value[i];
+        }
+        new_value += '.';
+        return(new_value);
+    }
+    return(value);
+}
+
 void PhoneBook::addContact()
 {
     std::string input;
@@ -51,10 +67,23 @@ void PhoneBook::addContact()
 
     if (_count < 8)
         _count++;
-
+    _index++;
     if(_index == 8)
         _index = 0;
 }
+
+bool invalid_input(std::string input)
+{
+    int i = 0;
+    while (input[i])
+    {
+        if('0' >= input[i] && input[i] >= '9')
+            return 1;
+        i++;
+    }
+    return 0;
+}
+
 
 void PhoneBook::searchContact() const
 {
@@ -64,27 +93,38 @@ void PhoneBook::searchContact() const
         return ;
     }
 
-    std::cout<<"| index | first | last | nick |"<<std::endl;
-    
+    std::cout<<"|     index|     first|      last|      nick|"<<std::endl;
+    std::cout<<"|-------------------------------------------|"<<std::endl;
     for (int i = 0; i < _count; i++)
     {
-        std::cout<< "|";
-        std::cout<< _persons[i].getFirst();
-        std::cout<< "|";
-        std::cout<< _persons[i].getLast();
-        std::cout<< "|";
-        std::cout<< _persons[i].getNick();
-        std::cout<< "|";
-        std::cout<< _persons[i].getPhone();
-        std::cout<< "|"<<std::endl;
+        std::cout<< "|"
+        << std::setw(10) << _index - 1 
+        << "|"
+        << std::setw(10)<< trim_string(_persons[i].getFirst())
+        << "|"
+        << std::setw(10)<< trim_string(_persons[i].getLast())
+        << "|"
+        << std::setw(10)<<  trim_string(_persons[i].getNick())
+        << "|"<< std::endl;
+        std::cout<<"|-------------------------------------------|"<<std::endl;
     }
-    
 
+    std::string input;
+    getline(std::cin, input);
+    if (invalid_input(input))
+    {
+        std::cout<<"Invalid input"<< std::endl;
+        return ;
+    }
     return ;
-
 }
 
 
-// ✅ Önce tabloyu yaz
-// ✅ SONRA index inputu al
-// ✅ SONRA o index’teki bilgileri çek
+// if empty → return
+
+// print table
+
+// ask index
+// if invalid → return
+
+// print full contact
