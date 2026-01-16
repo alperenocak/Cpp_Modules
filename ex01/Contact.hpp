@@ -24,11 +24,11 @@ private:
     std::string _phone;
     std::string _secret;
 public:
-    void setFirst(std::string value);
-    void setLast(std::string value);
-    void setNick(std::string value);
-    void setPhone(std::string value);
-    void setSecret(std::string value);
+    void setFirst(const std::string value);
+    void setLast(const std::string value);
+    void setNick(const std::string value);
+    void setPhone(const std::string value);
+    void setSecret(const std::string value);
     
     std::string getFirst(void) const;
     std::string getLast(void) const;

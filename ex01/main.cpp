@@ -14,5 +14,8 @@
 
 int main()
 {
-    
+    PhoneBook phonebook;
+
+    phonebook.addContact();
+    phonebook.searchContact();
 }

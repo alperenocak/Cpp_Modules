@@ -18,15 +18,15 @@ class PhoneBook
 {
 private:
     Contact _persons[8];
-    int     _i;
+    int     _count;
     int     _index;
 
-public:
-    void    addContact();
-    void    searchContact() const;
+    public:
     PhoneBook();
     ~PhoneBook();
+    
+    void    addContact();
+    void    searchContact() const;
 };
-
 
 #endif
