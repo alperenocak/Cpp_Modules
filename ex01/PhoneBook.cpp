@@ -63,12 +63,12 @@ void PhoneBook::addContact()
 
     
     std::cout<<"Phone Number: ";
-    if(std::getline(std::cin, input))
+    if(!std::getline(std::cin, input))
         return ;
     _persons[_index].setPhone(input);
 
     std::cout<<"Dark Secret: ";
-    if (std::getline(std::cin, input))
+    if (!std::getline(std::cin, input))
         return;
     _persons[_index].setSecret(input);
 
@@ -118,7 +118,6 @@ void PhoneBook::searchContact() const
     /*------------------------------------------------------------*/
     std::string input;
 
-    std::cout<<
     if (!getline(std::cin, input))
         return ;
     if (input.empty())
