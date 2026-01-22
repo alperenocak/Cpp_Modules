@@ -25,8 +25,8 @@ private:
     PhoneBook();
     ~PhoneBook();
     
-    void    addContact();
-    void    searchContact() const;
+    bool    addContact();
+    bool    searchContact() const;
 };
 
 #endif
