@@ -4,4 +4,4 @@
 - Commit history is preserved by moving each module repository into this monorepo using `git subtree`.
 
 ## Author
-👤 YourName (42 Login)
+👤 Yusuf Alperen Ocak
