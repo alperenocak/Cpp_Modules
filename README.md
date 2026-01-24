@@ -1,2 +1,7 @@
-# Cpp_Modules
-42 C++ Modules (CPP00–CPP09) — OOP, inheritance, polymorphism, templates and STL practices.
+
+## Notes
+- All modules follow the 42 subject requirements.
+- Commit history is preserved by moving each module repository into this monorepo using `git subtree`.
+
+## Author
+👤 YourName (42 Login)
