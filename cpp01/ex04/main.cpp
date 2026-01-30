@@ -14,15 +14,6 @@
 #include <iostream>
 #include "replacer.hpp"
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
-#define BOLD    "\033[1m"
-
 int main()
 {
     std::string filename;
@@ -63,7 +54,8 @@ int main()
     std::cout << MAGENTA << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" << RESET << std::endl;
     std::cout << std::endl;
 
-    replacer(s1, s2, filename);
+    if(!replacer(s1, s2, filename))
+        return 0;
 
     std::cout << BOLD << GREEN << "✅ Done! Check " << filename << ".replace" << RESET << std::endl;
 

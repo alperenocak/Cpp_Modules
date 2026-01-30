@@ -31,21 +31,21 @@ static std::string replaceAll(const std::string &content, const std::string &s1,
     return result;
 }
 
-void replacer(std::string s1, std::string s2, std::string filename)
+int replacer(std::string s1, std::string s2, std::string filename)
 {
     std::ifstream inFile(filename.c_str());
     if (!inFile)
     {
-        std::cerr << "Error: Cannot open input file '" << filename << "'" << std::endl;
-        return;
+        std::cerr << RED <<"Error: Cannot open input file '" << filename << "'" << RESET <<std::endl;
+        return 0;
     }
 
     std::string outFileName = filename.substr(0, filename.find(".")) + ".replace";
     std::ofstream outFile(outFileName.c_str());
     if (!outFile)
     {
-        std::cerr << "Error: Cannot create output file '" << outFileName << "'" << std::endl;
-        return;
+        std::cerr << RED <<"Error: Cannot create output file '" << outFileName << "'" <<RESET<< std::endl;
+        return 0;
     }
 
     std::stringstream buffer;
@@ -54,4 +54,5 @@ void replacer(std::string s1, std::string s2, std::string filename)
     outFile << replaceAll(buffer.str(), s1, s2);
     inFile.close();
     outFile.close();
+    return 1;
 }

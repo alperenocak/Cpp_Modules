@@ -40,5 +40,10 @@ int main()
         std::cout << RED <<"Please enter the specified commands." << RESET <<std::endl;
         return (1);
     }
+    if(input.compare("DEBUG") != 0 && input.compare("ERROR") != 0 && input.compare("INFO")  != 0 && input.compare("WARNING") != 0)
+    {
+        std::cerr << RED <<"Please enter the specified commands." << RESET <<std::endl;
+        return (1);
+    }
     a.complain(input);
 }
