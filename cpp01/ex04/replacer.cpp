@@ -15,37 +15,46 @@
 #include <fstream>
 #include <sstream>
 
-void replacer(std::string s1, std::string s2, std::string filename)
+static std::string replaceAll(const std::string &content, const std::string &s1, const std::string &s2)
 {
-    if(s1 == "" || s2 == "")
-        return;
-    std::ifstream myfile(filename.c_str());
-    std::ofstream replaceFile;
-    std::string outFileName = filename.substr(0, filename.find(".")) + ".replace";
-
-    if(!myfile)
-        std::cerr << "yeter nurdan" << std::endl;
-    
-    replaceFile.open(outFileName.c_str());
-    if(!replaceFile)
-        std::cerr << "acilmadi"<< std::endl;
-    
-    /*-----------------------find string--------------------------------*/
-
-    std::stringstream buffer;
-
-    buffer << myfile.rdbuf();
-    std::string content = buffer.str();
     std::string result;
     size_t pos = 0;
     size_t found;
-    
+
     while ((found = content.find(s1, pos)) != std::string::npos)
     {
-        result += content.substr(pos, found -pos);
+        result += content.substr(pos, found - pos);
         result += s2;
         pos = found + s1.length();
     }
     result += content.substr(pos);
-    replaceFile << result;
+    return result;
+}
+
+void replacer(std::string s1, std::string s2, std::string filename)
+{
+    if (s1.empty())
+        return;
+
+    std::ifstream inFile(filename.c_str());
+    if (!inFile)
+    {
+        std::cerr << "Error: Cannot open input file '" << filename << "'" << std::endl;
+        return;
+    }
+
+    std::string outFileName = filename.substr(0, filename.find(".")) + ".replace";
+    std::ofstream outFile(outFileName.c_str());
+    if (!outFile)
+    {
+        std::cerr << "Error: Cannot create output file '" << outFileName << "'" << std::endl;
+        return;
+    }
+
+    std::stringstream buffer;
+    buffer << inFile.rdbuf();
+    
+    outFile << replaceAll(buffer.str(), s1, s2);
+    inFile.close();
+    outFile.close();
 }

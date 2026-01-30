@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-01-28 07:23:26 by yuocak            #+#    #+#             */
-/*   Updated: 2026-01-28 07:23:26 by yuocak           ###   ########.fr       */
+/*   Created: 2026-01-29 11:25:01 by yuocak            #+#    #+#             */
+/*   Updated: 2026-01-29 11:25:01 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fstream>
-#include <iostream>
-#include "replacer.hpp"
+#ifndef HARL_HPP
+#define HARL_HPP
 
-int main () {
-    
-    replacer("alperen","yusuf", "test.txt");
-}
+#include <iostream>
+
+class Harl
+{
+private:
+    void debug(void);
+    void info(void);
+    void warning(void);
+    void error(void);
+public:
+
+    void complain(std::string level);
+};
+
+#endif
