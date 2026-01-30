@@ -14,8 +14,6 @@
 
 int main()
 {
-    Zombie *Zombie = zombieHorde(4, "Zombie Memos");
-    (void)Zombie;
-    delete[] Zombie;
-    
+    Zombie *zombie = zombieHorde(4, "Zombie Memos");
+    delete[] zombie;
 }   
