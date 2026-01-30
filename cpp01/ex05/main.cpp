@@ -35,6 +35,10 @@ int main()
 
     std::cout << BOLD << "Enter level:" << RESET << std::endl;
     std::cout << CYAN << "> " << RESET;
-    std::getline(std::cin, input);
+    if (!std::getline(std::cin, input) || input.empty())
+    {
+        std::cout << RED <<"Please enter the specified commands." << RESET <<std::endl;
+        return (1);
+    }
     a.complain(input);
 }

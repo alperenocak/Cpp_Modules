@@ -33,9 +33,6 @@ static std::string replaceAll(const std::string &content, const std::string &s1,
 
 void replacer(std::string s1, std::string s2, std::string filename)
 {
-    if (s1.empty())
-        return;
-
     std::ifstream inFile(filename.c_str());
     if (!inFile)
     {
