@@ -40,7 +40,7 @@ int replacer(std::string s1, std::string s2, std::string filename)
         return 0;
     }
 
-    std::string outFileName = filename.substr(0, filename.find(".")) + ".replace";
+    std::string outFileName = filename + ".replace";
     std::ofstream outFile(outFileName.c_str());
     if (!outFile)
     {
