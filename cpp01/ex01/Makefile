@@ -1,8 +1,10 @@
-NAME    := zombieHorde
+NAME    := MoarBrainz
 CXX     := c++
 CXXFLAGS:= -Wall -Wextra -Werror -std=c++98
 
-SRCS    :=	main.cpp Zombie.cpp zombieHorde.cpp
+SRCS    :=	main.cpp Zombie.cpp ZombieHorde.cpp
+
+HDRS    := Zombie.hpp
 
 OBJS    := $(SRCS:.cpp=.o)
 
@@ -11,7 +13,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp $(HDRS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
