@@ -6,15 +6,28 @@ set -e
 # Eğer argüman verilmezse MODULE içinden okur.
 
 MODULE="${1:-cpp02}"
-REMOTE="$MODULE"
+REMOTE_42="$MODULE"          # 42 remote'u (cpp01, cpp02 vs.)
+REMOTE_GITHUB="origin"       # GitHub remote'u
 BRANCH="main"
 
+# GitHub için verified commit için global config ayarları
+GITHUB_USER_NAME="alperenocak"
+GITHUB_USER_EMAIL="yusufalperenocak10@gmail.com"
+
 echo "========================================"
-echo "  git subtree push helper for 42"
+echo "  git push helper for 42 & GitHub"
 echo "========================================"
-echo "MODULE : $MODULE"
-echo "REMOTE : $REMOTE"
-echo "BRANCH : $BRANCH"
+echo "MODULE        : $MODULE"
+echo "REMOTE (42)   : $REMOTE_42"
+echo "REMOTE (GH)   : $REMOTE_GITHUB"
+echo "BRANCH        : $BRANCH"
+echo "----------------------------------------"
+
+# Global git config ayarla (verified commit için)
+echo "🔧 Setting global git config for verified commits..."
+git config --global user.name "$GITHUB_USER_NAME"
+git config --global user.email "$GITHUB_USER_EMAIL"
+echo "✅ Global config set: $GITHUB_USER_NAME <$GITHUB_USER_EMAIL>"
 echo "----------------------------------------"
 
 # 1) Prefix klasörü var mı?
@@ -25,9 +38,9 @@ if [ ! -d "$MODULE" ]; then
   exit 1
 fi
 
-# 2) Remote var mı?
-if ! git remote | grep -qx "$REMOTE"; then
-  echo "❌ ERROR: '$REMOTE' remote'u yok."
+# 2) 42 Remote var mı?
+if ! git remote | grep -qx "$REMOTE_42"; then
+  echo "❌ ERROR: '$REMOTE_42' remote'u yok."
   echo "📌 Mevcut remoteler:"
   git remote -v
   exit 1
@@ -54,8 +67,37 @@ echo
 echo "🧾 Last commits touching '$MODULE/':"
 git log --oneline -- "$MODULE" | head -5 || true
 
-# 5) Split commit üret
+# ==========================================
+# GITHUB'A PUSH (Ana repo)
+# ==========================================
 echo
+echo "========================================"
+echo "🐙 GITHUB'A PUSH"
+echo "========================================"
+
+echo "🌍 Fetching from GitHub..."
+git fetch "$REMOTE_GITHUB" "$BRANCH" >/dev/null 2>&1 || true
+
+LOCAL_HEAD=$(git rev-parse HEAD 2>/dev/null || echo "")
+GITHUB_HEAD=$(git rev-parse "$REMOTE_GITHUB/$BRANCH" 2>/dev/null || echo "")
+
+if [ "$GITHUB_HEAD" = "$LOCAL_HEAD" ]; then
+  echo "✅ GitHub zaten güncel: $REMOTE_GITHUB/$BRANCH == $LOCAL_HEAD"
+else
+  echo "🚀 Pushing to GitHub..."
+  git push "$REMOTE_GITHUB" "$BRANCH"
+  echo "✅ GitHub push completed!"
+fi
+
+# ==========================================
+# 42'YE SUBTREE PUSH
+# ==========================================
+echo
+echo "========================================"
+echo "🎓 42'YE SUBTREE PUSH"
+echo "========================================"
+
+# 5) Split commit üret
 echo "🔨 Creating subtree split commit..."
 SPLIT_COMMIT=$(git subtree split --prefix="$MODULE")
 
@@ -69,21 +111,25 @@ echo "✅ Split commit: $SPLIT_COMMIT"
 # 6) Remote branch'te aynı commit var mı?
 echo
 echo "🌍 Fetch remote branch..."
-git fetch "$REMOTE" "$BRANCH" >/dev/null 2>&1 || true
+git fetch "$REMOTE_42" "$BRANCH" >/dev/null 2>&1 || true
 
-REMOTE_HEAD=$(git rev-parse "$REMOTE/$BRANCH" 2>/dev/null || echo "")
+REMOTE_HEAD=$(git rev-parse "$REMOTE_42/$BRANCH" 2>/dev/null || echo "")
 
 if [ "$REMOTE_HEAD" = "$SPLIT_COMMIT" ]; then
-  echo "✅ Remote zaten güncel: $REMOTE/$BRANCH == $SPLIT_COMMIT"
+  echo "✅ 42 Remote zaten güncel: $REMOTE_42/$BRANCH == $SPLIT_COMMIT"
   echo "➡️  Push gerekmiyor (No new revisions)."
-  exit 0
+else
+  # 7) Push to 42
+  echo
+  echo "🚀 Pushing subtree to 42..."
+  echo "git push using: $REMOTE_42 $BRANCH"
+  git push "$REMOTE_42" "$SPLIT_COMMIT:refs/heads/$BRANCH"
+  echo "✅ 42 push completed!"
 fi
 
-# 7) Push
 echo
-echo "🚀 Pushing subtree..."
-echo "git push using: $REMOTE $BRANCH"
-git push "$REMOTE" "$SPLIT_COMMIT:refs/heads/$BRANCH"
-
-echo
-echo "✅ DONE: $MODULE -> $REMOTE/$BRANCH pushed successfully."
+echo "========================================"
+echo "✅ ALL DONE!"
+echo "   📦 $MODULE -> GitHub ($REMOTE_GITHUB)"
+echo "   🎓 $MODULE -> 42 ($REMOTE_42)"
+echo "========================================"
