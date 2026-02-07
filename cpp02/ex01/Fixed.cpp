@@ -12,6 +12,12 @@
 
 #include "Fixed.hpp"
 #include <iostream>
+#include <cmath>
+
+/* ************************************************************************** */
+/*                         Orthodox Canonical Form                            */
+/* ************************************************************************** */
+
 Fixed::Fixed(): _value(0)
 {
 	std::cout << "Default constructor called" << std::endl;
@@ -34,16 +40,60 @@ Fixed &Fixed::operator=(const Fixed &other)
 
 Fixed::~Fixed()
 {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Default destructor called" << std::endl;
 }
+
+/* ************************************************************************** */
+/*                            Parameterized Constructors                      */
+/* ************************************************************************** */
+
+Fixed::Fixed(int a)
+{
+	std::cout << "Int constructor called" << std::endl;
+	this->_value = a << this->_bit;
+}
+
+Fixed::Fixed(float a)
+{
+	std::cout << "Float constructor called" << std::endl;
+	this->_value = static_cast<int>(roundf(a *(1 << _bit)));
+}
+
+/* ************************************************************************** */
+/*                            Member Functions                                */
+/* ************************************************************************** */
 
 int Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
-	return (_value);
+	return _value;
+}
+
+int Fixed::getValue(void) const
+{
+	return _value;
 }
 
 void Fixed::setRawBits(int const raw)
 {
 	 this->_value = raw;
+}
+
+float Fixed::toFloat( void ) const
+{
+	return (static_cast<float>(_value)/(1 << _bit));
+}
+
+int Fixed::toInt( void ) const
+{
+	return(_value >> _bit);
+}
+
+/* ************************************************************************** */
+/*                            Operator Overloads                              */
+/* ************************************************************************** */
+
+std::ostream& operator << (std::ostream &out, const Fixed& other)
+{
+	out << other.toFloat();
+	return (out);
 }

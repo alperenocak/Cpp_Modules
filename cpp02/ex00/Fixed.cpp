@@ -12,6 +12,7 @@
 
 #include "Fixed.hpp"
 #include <iostream>
+
 Fixed::Fixed(): _value(0)
 {
 	std::cout << "Default constructor called" << std::endl;
@@ -45,5 +46,6 @@ int Fixed::getRawBits(void) const
 
 void Fixed::setRawBits(int const raw)
 {
+	std::cout << "setRawBits member function called" << std::endl;
 	 this->_value = raw;
 }
