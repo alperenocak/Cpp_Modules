@@ -18,7 +18,7 @@
 int main()
 {
 {
-    Weapon club("pistol");
+    Weapon club = ("crude spiked club");
     HumanA bob("Bob", club);
     bob.attack();
     club.setType("AK-47");
