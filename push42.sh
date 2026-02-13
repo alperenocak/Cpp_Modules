@@ -2,10 +2,10 @@
 set -e
 
 # Kullanım:
-# ./push42.sh cpp02
+# ./push42.sh cpp03
 # Eğer argüman verilmezse MODULE içinden okur.
 
-MODULE="${1:-cpp02}"
+MODULE="${1:-cpp03}"
 REMOTE_42="$MODULE"          # 42 remote'u (cpp01, cpp02 vs.)
 REMOTE_GITHUB="origin"       # GitHub remote'u
 BRANCH="main"
