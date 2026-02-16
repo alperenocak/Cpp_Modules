@@ -20,9 +20,9 @@ FragTrap::FragTrap()
 {
     this->_name = "Unnamed";
     this->_hitPoints = 100;
-    this->_energyPoints = 50;
-    this->_attackDamage = 20;
-    std::cout<<"ScavTrap " << "is born" << std::endl; 
+    this->_energyPoints = 100;
+    this->_attackDamage = 30;
+    std::cout<<"FragTrap " << this->_name << " is born" << std::endl; 
 }
 
 FragTrap::FragTrap(const FragTrap &other)
@@ -66,18 +66,8 @@ FragTrap::FragTrap(std::string name):ClapTrap(name)
 //                           Member Functions                                 //
 // ************************************************************************** //
 
-void FragTrap::attack(const std::string &target)
-{
-    if (this->_hitPoints > 0 && this->_energyPoints > 0)
-    {
-        this->_energyPoints--;
-        std::cout << "FragTrap " << _name << " attacks " << target << ", " << "causing " << this->_attackDamage << " points of damage! " << std::endl;
-    }
-    else
-        std::cout << "FragTrap " << _name << " has no energy or hit points left to attack!" << std::endl;
-}
 
-void FragTrap::highFiveGuys(void)
+void FragTrap::highFivesGuys(void)
 {
     std::cout << "FragTrap is now in High Five Guys mode."<< std::endl;
 }
