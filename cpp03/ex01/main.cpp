@@ -10,12 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
-int main()
+#include "ScavTrap.hpp"
+
+int main(void)
 {
-    ClapTrap B;
-    ClapTrap A("robot memos");
-    A.attack("robot irfo");
-    A.takeDamage(3);
-    A.beRepaired(3);
+    std::cout << "--- 1. AŞAMA: ScavTrap Doğuyor ---" << std::endl;
+    ScavTrap robot("Guardian");
+
+    std::cout << "\n--- 2. AŞAMA: Özellik Kontrolü ---" << std::endl;
+    robot.attack("Intruder"); 
+    
+    robot.takeDamage(10);
+    robot.beRepaired(5);
+
+    std::cout << "\n--- 3. AŞAMA: Özel Yetenek ---" << std::endl;
+    robot.guardGate();
+
+    std::cout << "\n--- 4. AŞAMA: Yıkım (Destruction) ---" << std::endl;
+    return (0);
 }
