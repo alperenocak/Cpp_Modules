@@ -11,21 +11,32 @@
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main(void)
 {
-    std::cout << "--- 1. AŞAMA: ScavTrap Doğuyor ---" << std::endl;
-    ScavTrap robot("Guardian");
+    std::cout << "--- Creating robots ---" << std::endl;
+    ClapTrap clap("Clappy");
+    ScavTrap scav("Scavvy");
+    FragTrap frag("Fraggy");
 
-    std::cout << "\n--- 2. AŞAMA: Özellik Kontrolü ---" << std::endl;
-    robot.attack("Intruder"); 
-    
-    robot.takeDamage(10);
-    robot.beRepaired(5);
+    std::cout << "\n--- ClapTrap in action ---" << std::endl;
+    clap.attack("Enemy");
+    clap.takeDamage(5);
+    clap.beRepaired(3);
 
-    std::cout << "\n--- 3. AŞAMA: Özel Yetenek ---" << std::endl;
-    robot.guardGate();
+    std::cout << "\n--- ScavTrap in action ---" << std::endl;
+    scav.attack("Enemy");
+    scav.takeDamage(20);
+    scav.beRepaired(10);
+    scav.guardGate();
 
-    std::cout << "\n--- 4. AŞAMA: Yıkım (Destruction) ---" << std::endl;
+    std::cout << "\n--- FragTrap in action ---" << std::endl;
+    frag.attack("Enemy");
+    frag.takeDamage(40);
+    frag.beRepaired(15);
+    frag.highFivesGuys();
+
+    std::cout << "\n--- Destruction ---" << std::endl;
     return (0);
 }

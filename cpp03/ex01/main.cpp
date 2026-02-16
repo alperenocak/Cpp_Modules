@@ -14,18 +14,20 @@
 
 int main(void)
 {
-    std::cout << "--- 1. AŞAMA: ScavTrap Doğuyor ---" << std::endl;
-    ScavTrap robot("Guardian");
+    std::cout << "--- Creating ScavTrap ---" << std::endl;
+    ScavTrap guard("Guardian");
 
-    std::cout << "\n--- 2. AŞAMA: Özellik Kontrolü ---" << std::endl;
-    robot.attack("Intruder"); 
-    
-    robot.takeDamage(10);
-    robot.beRepaired(5);
+    std::cout << "\n--- Combat test ---" << std::endl;
+    guard.attack("Intruder");
+    guard.takeDamage(30);
+    guard.beRepaired(10);
 
-    std::cout << "\n--- 3. AŞAMA: Özel Yetenek ---" << std::endl;
-    robot.guardGate();
+    std::cout << "\n--- Special ability ---" << std::endl;
+    guard.guardGate();
 
-    std::cout << "\n--- 4. AŞAMA: Yıkım (Destruction) ---" << std::endl;
+    std::cout << "\n--- Copy test ---" << std::endl;
+    ScavTrap copy(guard);
+
+    std::cout << "\n--- Destruction ---" << std::endl;
     return (0);
 }
