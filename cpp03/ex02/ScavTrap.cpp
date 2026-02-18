@@ -36,7 +36,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &other)
         this->_hitPoints = other._hitPoints;
         this->_energyPoints = other._energyPoints;
     }
-    std::cout << "Copy assigment operator called!" << std::endl;
+    std::cout << "Copy assignment operator called!" << std::endl;
 
     return(*this);   
 }
@@ -66,5 +66,5 @@ void ScavTrap::attack(const std::string &target)
 
 void ScavTrap::guardGate()
 {
-    std::cout << "ScavTrap is now in Gate keeper mode." <<std::endl;
+    std::cout << "ScavTrap " << _name << " is now in Gate keeper mode." << std::endl;
 }

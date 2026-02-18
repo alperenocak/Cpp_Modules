@@ -36,7 +36,7 @@ FragTrap &FragTrap::operator=(const FragTrap &other)
         this->_hitPoints = other._hitPoints;
         this->_energyPoints = other._energyPoints;
     }
-    std::cout << "Copy assigment operator called!" << std::endl;
+    std::cout << "Copy assignment operator called!" << std::endl;
 
     return(*this);   
 }
@@ -55,5 +55,5 @@ FragTrap::FragTrap(std::string name):ClapTrap(name)
 
 void FragTrap::highFivesGuys(void)
 {
-    std::cout << "FragTrap is now in High Five Guys mode."<< std::endl;
+    std::cout << "FragTrap " << _name << " requests a positive high five!" << std::endl;
 }
