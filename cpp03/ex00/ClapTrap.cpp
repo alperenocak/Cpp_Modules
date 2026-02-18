@@ -12,10 +12,6 @@
 
 #include "ClapTrap.hpp"
 
-// ************************************************************************** //
-//                       Orthodox Canonical Form                              //
-// ************************************************************************** //
-
 ClapTrap::ClapTrap()
 {
     this->_name = "Unnamed";
@@ -36,7 +32,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap& other)
     if(this != &other)
     {
         this->_attackDamage = other._attackDamage;
-        this->_name = other._name;
+        this->_name = other._name; //neden tüm değerleri init ettiğine bak!!
         this->_hitPoints = other._hitPoints;
         this->_energyPoints = other._energyPoints;
     }
@@ -50,18 +46,11 @@ ClapTrap::~ClapTrap()
     std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
 }
 
-// ************************************************************************** //
-//                            Constructors                                    //
-// ************************************************************************** //
 
 ClapTrap::ClapTrap(std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
     std::cout<<"ClapTrap " << _name << " is born" << std::endl; 
 }
-
-// ************************************************************************** //
-//                           Member Functions                                 //
-// ************************************************************************** //
 
 void ClapTrap::attack(const std::string &target)
 {

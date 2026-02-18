@@ -12,10 +12,6 @@
 
 #include "FragTrap.hpp"
 
-// ************************************************************************** //
-//                       Orthodox Canonical Form                              //
-// ************************************************************************** //
-
 FragTrap::FragTrap()
 {
     this->_name = "Unnamed";
@@ -49,11 +45,6 @@ FragTrap::~FragTrap()
 {
     std::cout << "FragTrap " << this->_name << " is dead" << std::endl;
 }
-
-// ************************************************************************** //
-//                            Constructors                                    //
-// ************************************************************************** //
-
 FragTrap::FragTrap(std::string name):ClapTrap(name)
 {
     _hitPoints = 100;
@@ -61,11 +52,6 @@ FragTrap::FragTrap(std::string name):ClapTrap(name)
     _attackDamage = 30;
     std::cout<<"FragTrap " << _name << " is born" << std::endl; 
 }
-
-// ************************************************************************** //
-//                           Member Functions                                 //
-// ************************************************************************** //
-
 
 void FragTrap::highFivesGuys(void)
 {
