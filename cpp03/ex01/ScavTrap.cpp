@@ -46,11 +46,6 @@ ScavTrap::~ScavTrap()
 {
     std::cout << "ScavTrap " << this->_name << " is dead" << std::endl;
 }
-
-// ************************************************************************** //
-//                            Constructors                                    //
-// ************************************************************************** //
-
 ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
     _hitPoints = 100;
@@ -59,10 +54,6 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
     std::cout<<"ScavTrap " << _name << " is born" << std::endl; 
 }
 
-
-// ************************************************************************** //
-//                           Member Functions                                 //
-// ************************************************************************** //
 
 void ScavTrap::attack(const std::string &target)
 {

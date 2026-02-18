@@ -46,18 +46,11 @@ ClapTrap::~ClapTrap()
     std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
 }
 
-// ************************************************************************** //
-//                            Constructors                                    //
-// ************************************************************************** //
 
 ClapTrap::ClapTrap(std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
     std::cout<<"ClapTrap " << _name << " is born" << std::endl; 
 }
-
-// ************************************************************************** //
-//                           Member Functions                                 //
-// ************************************************************************** //
 
 void ClapTrap::attack(const std::string &target)
 {

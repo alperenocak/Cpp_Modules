@@ -32,7 +32,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap& other)
     if(this != &other)
     {
         this->_attackDamage = other._attackDamage;
-        this->_name = other._name; //neden tüm değerleri init ettiğine bak!!
+        this->_name = other._name;
         this->_hitPoints = other._hitPoints;
         this->_energyPoints = other._energyPoints;
     }
