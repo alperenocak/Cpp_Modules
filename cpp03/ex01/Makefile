@@ -4,7 +4,7 @@ CXXFLAGS:= -Wall -Wextra -Werror -std=c++98
 
 SRCS    :=	main.cpp ClapTrap.cpp ScavTrap.cpp
 
-HDRS    := Fixed.hpp
+HDRS    := ClapTrap.hpp ScavTrap.hpp
 
 OBJS    := $(SRCS:.cpp=.o)
 
