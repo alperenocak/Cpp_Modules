@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-02-20 19:49:14 by yuocak            #+#    #+#             */
-/*   Updated: 2026-02-20 19:49:14 by yuocak           ###   ########.fr       */
+/*   Created: 2026-02-20 21:09:25 by yuocak            #+#    #+#             */
+/*   Updated: 2026-02-20 21:09:25 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-#define CAT_HPP
+#ifndef WRONGCAT_HPP
+#define WRONGCAT_HPP
 
-#include "Animal.hpp"
+#include <iostream>
+#include "WrongAnimal.hpp"
 
-class Cat:public Animal
-{
+class WrongCat:public WrongAnimal
+{ 
 public:
-    
-    Cat();
-    Cat& operator=(const Cat& other);
-    Cat(const Cat& other);
-    ~Cat();
+    WrongCat();
+    WrongCat& operator=(const WrongCat& other);
+    WrongCat(const WrongCat& other);
+    ~WrongCat();
 
-    virtual void makeSound(void) const;
+    void makeSound(void) const;
 };
 
 

@@ -21,9 +21,10 @@ public:
     Animal();
     Animal& operator=(const Animal& other);
     Animal(const Animal& other);
-    ~Animal();
+    virtual ~Animal();
     
-    void makeSound(void);
+    virtual void makeSound(void) const;
+    std::string getType(void) const;
 };
 
 #endif
