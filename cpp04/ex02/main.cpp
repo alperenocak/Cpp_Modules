@@ -31,11 +31,16 @@ int main()
 
     std::cout << std::endl << "--- Deep copy test ---" << std::endl;
     Dog original;
+    original.getBrain()->setIdea(0, "I want to play");
     Dog copy(original);
-    std::cout << "original sound: ";
-    original.makeSound();
-    std::cout << "copy sound: ";
-    copy.makeSound();
+    copy.getBrain()->setIdea(0, "I want to sleep");
+    std::cout << "Original: " << original.getBrain()->getIdea(0) << std::endl;
+    std::cout << "Copy: " << copy.getBrain()->getIdea(0) << std::endl;
+
+    std::cout << std::endl << "--- Cat idea test ---" << std::endl;
+    Cat cat;
+    cat.getBrain()->setIdea(0, "I want fish");
+    std::cout << "Cat: " << cat.getBrain()->getIdea(0) << std::endl;
 
     std::cout << std::endl << "--- Deleting array ---" << std::endl;
     for (int i = 0; i < size; i++)

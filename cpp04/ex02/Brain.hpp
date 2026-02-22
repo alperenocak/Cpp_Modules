@@ -22,6 +22,8 @@ public:
     Brain& operator=(const Brain& other);
     Brain(const Brain& other);
     ~Brain();
+    const std::string& getIdea(int index) const;
+    void setIdea(int index, const std::string& idea);
 };
 
 #endif

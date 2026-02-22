@@ -38,3 +38,14 @@ Brain::~Brain()
 {
     std::cout << "Brain destructor called" << std::endl;
 }
+
+const std::string& Brain::getIdea(int index) const
+{
+    return (this->ideas[index]);
+}
+
+void Brain::setIdea(int index, const std::string& idea)
+{
+    if (index >= 0 && index < 100)
+        this->ideas[index] = idea;
+}
