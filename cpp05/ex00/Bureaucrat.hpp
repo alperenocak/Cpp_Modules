@@ -17,16 +17,19 @@
 class Bureaucrat{
 private:
     const           std::string _name;
-    unsigned int    _grade;
+    int    _grade;
 public:
     Bureaucrat();
     Bureaucrat& operator=(const Bureaucrat& other);
     Bureaucrat(const Bureaucrat& other);
     ~Bureaucrat();
-    Bureaucrat(const std::string& name, unsigned int grade);
+    Bureaucrat(const std::string& name, int grade);
+    
     std::string getName() const;
     unsigned int getGrade() const;
 
+    void incrementGrade();
+    void decrementGrade();
     class GradeTooHighException : public std::exception{
         public:
             virtual const char* what() const throw();
