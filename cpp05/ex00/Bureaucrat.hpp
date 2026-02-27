@@ -16,17 +16,16 @@
 
 class Bureaucrat{
 private:
-    const           std::string _name;
-    int    _grade;
+    const std::string _name;
+    int _grade;
 public:
     Bureaucrat();
     Bureaucrat& operator=(const Bureaucrat& other);
     Bureaucrat(const Bureaucrat& other);
     ~Bureaucrat();
     Bureaucrat(const std::string& name, int grade);
-    
     std::string getName() const;
-    unsigned int getGrade() const;
+    int getGrade() const;
 
     void incrementGrade();
     void decrementGrade();
@@ -39,5 +38,6 @@ public:
             virtual const char* what() const throw();
     };
 };
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& b);
 
 #endif
