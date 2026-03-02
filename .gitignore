@@ -1,0 +1,24 @@
+*.o
+*.d
+a.out
+
+# Compiled executables (no extension, in exercise dirs)
+cpp00/ex00/megaphone
+cpp00/ex01/contact
+cpp01/ex00/zombie
+cpp01/ex01/zombie
+cpp01/ex02/references
+cpp01/ex03/weapon
+cpp01/ex04/replacer
+cpp01/ex05/harl
+cpp02/ex00/fixed
+cpp02/ex01/fixed
+cpp02/ex02/fixed
+cpp03/ex00/claptrap
+cpp03/ex01/claptrap
+cpp03/ex02/claptrap
+cpp04/ex00/animal
+cpp04/ex01/animal
+cpp04/ex02/animal
+cpp05/ex00/Bureaucrat
+cpp05/ex01/Bureaucrat
