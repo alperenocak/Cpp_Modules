@@ -12,7 +12,7 @@
 
 #include <fstream>
 #include <iostream>
-#include "replacer.hpp"
+#include "Replacer.hpp"
 
 int main()
 {
