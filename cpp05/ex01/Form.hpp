@@ -38,6 +38,8 @@ public:
             virtual const char* what() const throw();
     };
     bool getSign() const;
+    int getSignGrade() const;
+    int getExecGrade() const;
     std::string getName() const;
     void beSigned(const Bureaucrat& b);
 };

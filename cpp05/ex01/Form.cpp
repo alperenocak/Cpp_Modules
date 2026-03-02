@@ -32,6 +32,14 @@ bool Form::getSign() const
 {
     return this->_sign;
 }
+int Form::getSignGrade() const
+{
+    return this->_signgrade;
+}
+int Form::getExecGrade() const
+{
+    return this->_execgrade;
+}
 std::string Form::getName() const
 {
     return this->_name;
@@ -49,5 +57,15 @@ const char *Form::GradeTooHighException::what() const throw()
 const char* Form::GradeTooLowException::what() const throw()
 {
     return "Form grade is too low! (Min is 150)";
+}
+
+std::ostream &operator<<(std::ostream &out, const Form &other)
+{
+    out << "Form: " << other.getName()
+        << ", signed: " << (other.getSign() ? "yes" : "no")
+        << ", sign grade: " << other.getSignGrade()
+        << ", exec grade: " << other.getExecGrade()
+        << std::endl;
+    return (out);
 }
 
