@@ -10,7 +10,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return(*this);
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) {
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other):AForm(other) {
 	this->_target = other._target;
 }
 
