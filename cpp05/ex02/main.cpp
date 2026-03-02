@@ -21,7 +21,7 @@ int main()
     try
     {
  
-        Bureaucrat a("alperen", 11);
+        Bureaucrat a("alperen", 1);
         ShrubberyCreationForm form("home");
         RobotomyRequestForm ak("robotimized");
         PresidentialPardonForm bak("irfo");
