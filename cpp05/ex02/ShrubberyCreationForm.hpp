@@ -15,6 +15,8 @@
 #include <iostream>
 #include "AForm.hpp"
 
+class Bureaucrat;
+
 class ShrubberyCreationForm: public AForm
 {
 private:

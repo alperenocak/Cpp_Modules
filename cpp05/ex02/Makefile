@@ -2,9 +2,9 @@ NAME    := Bureaucrat
 CXX     := c++
 CXXFLAGS:= -Wall -Wextra -Werror -std=c++98
 
-SRCS    := main.cpp Bureaucrat.cpp AForm.cpp
+SRCS    := main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
 
-HDRS    := Bureaucrat.hpp AForm.hpp
+HDRS    := Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp
 
 OBJS    := $(SRCS:.cpp=.o)
 

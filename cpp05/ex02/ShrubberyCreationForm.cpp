@@ -1,27 +1,43 @@
 #include "ShrubberyCreationForm.hpp"
-
-ShrubberyCreationForm::ShrubberyCreationForm()
-{
-}
+#include "Bureaucrat.hpp"
+#include <fstream>
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm",145, 137), _target("home") {}
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
 {
-	// TODO: insert return statement here
+	if (this != &other)
+		this->_target = other._target;
+	return(*this);
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
-{
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) {
+	this->_target = other._target;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm()
-{
-}
+ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm",
-	145, 137), _target(target)
-{
-}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm",145, 137), _target(target){}
 
-void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
-{
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const{
+	
+	if (!this->getSign())
+		throw ShrubberyCreationForm::NotSignedException();
+	if(executor.getGrade() > this->getExecGrade())
+		throw AForm::GradeTooLowException();
+	std::ofstream file((this->_target + "_shrubbery").c_str());
+    file << "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"<<
+	"⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⡰⡇⠁⠀⠀⠀⠀⠀⠀⠀⠀\n"<<
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠰⢾⠇⠨⡦⠀⠂⠀⠀⠀⠀⠀⠀\n"<<
+	"⠀⠀⠀⠀⠀⠀⡀⠀⢈⣹⠜⠻⢾⠃⠀⠀⠀⠀⠀⠀⠀\n"<<
+	"⠀⠀⠀⠀⠀⠀⠁⢠⣿⡵⠾⣻⣶⠿⠦⠀⠀⠀⠀⠀⠀\n"<<
+	"⠀⠀⠀⠀⢀⠀⢀⣠⣮⣦⡶⠻⠛⢶⣄⡀⠁⠀⠀⠀⠀\n"<<
+	"⠀⠀⠀⠀⠀⠀⢀⣽⠏⠁⣠⣂⣦⣈⣝⣦⣄⠀⠈⠁⠀\n"<<
+	"⠀⠀⠀⠀⠁⣠⣾⣵⣾⣾⠟⡙⠟⠿⣍⡉⠀⠀⠆⠀⠀\n"<<
+	"⠀⠰⠀⠀⠄⣠⣶⣾⣭⡶⠟⠻⣶⡰⣜⣳⣦⣄⠀⡀⠀\n"<<
+	"⠀⠀⠀⢀⣠⣴⣿⣋⡴⣪⠎⣄⡙⠻⠿⣯⣉⠉⠀⠀⠀\n"<<
+	"⠀⠂⠀⢀⣉⡭⢿⡛⣛⣵⠎⠀⠙⢾⣶⣦⣭⣷⣦⠐⠀\n"<<
+	"⠀⠀⢈⣙⣿⡿⠿⠟⣋⢅⡄⡄⡐⣄⢤⣉⠷⢦⣄⣀⠠\n"<<
+	"⠐⠾⠿⢽⣷⡶⠶⡿⣓⣭⣾⣿⢷⣬⣓⢿⠿⠿⣯⣉⣁\n"<<
+	"⠀⠀⠀⠉⠉⠉⠛⠛⠉⢀⣿⢿⡀⠙⠋⠓⠿⠿⠏⠉⠉\n"<<
+	"⠀⠀⠀⠀⠀⠀⠠⠤⠶⠾⢿⡯⠷⠶⠤⠄⠀⠀⠀⠀⠀ \n"<< std::endl;
 }

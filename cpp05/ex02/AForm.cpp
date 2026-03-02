@@ -81,3 +81,7 @@ std::ostream &operator<<(std::ostream &out, const AForm &other)
     return (out);
 }
 
+const char *AForm::NotSignedException::what() const throw()
+{
+    return "not signed form";
+}
