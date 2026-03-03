@@ -1,21 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-02-27 21:32:46 by yuocak            #+#    #+#             */
-/*   Updated: 2026-02-27 21:32:46 by yuocak           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Bureaucrat.hpp"
 #include <iostream>
 
 int main()
 {
-    // Test 1: Normal bureaucrat
     try
     {
         Bureaucrat a("Alperen", 75);
@@ -30,7 +17,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 2: Grade too high (0)
     try
     {
         Bureaucrat b("TooHigh", 0);
@@ -40,7 +26,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 3: Grade too low (151)
     try
     {
         Bureaucrat c("TooLow", 151);
@@ -50,7 +35,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 4: Increment beyond max grade
     try
     {
         Bureaucrat d("Max", 1);
@@ -62,7 +46,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 5: Decrement beyond min grade
     try
     {
         Bureaucrat e("Min", 150);

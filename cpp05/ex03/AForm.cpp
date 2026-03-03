@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   AForm.cpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-02 14:36:26 by yuocak            #+#    #+#             */
-/*   Updated: 2026-03-02 14:36:26 by yuocak           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
@@ -24,7 +12,8 @@ AForm &AForm::operator=(const AForm &other)
 
 AForm::AForm(const AForm &other): _sign(other._sign), _name(other._name), _signgrade(other._signgrade), _execgrade(other._execgrade){}
 
-AForm::~AForm(){}
+AForm::~AForm(){
+   }
 
 AForm::AForm(const std::string name, const int signgrade, const int execgrade): _sign(false), _name(name), _signgrade(signgrade), _execgrade(execgrade)
 {

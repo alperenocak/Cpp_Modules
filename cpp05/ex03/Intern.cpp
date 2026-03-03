@@ -2,6 +2,7 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include <stdexcept>
 
 AForm *Intern::makeRobotomy(const std::string &target)
 {
@@ -59,6 +60,5 @@ AForm *Intern::makeForm(const std::string &name, const std::string &target)
             return (this->*formMakers[i])(target);
         }
     }
-    std::cout << "Error: Intern couldn't find the form named " << name << std::endl;
-    return NULL;
+    throw std::runtime_error("Intern couldn't find the form named: " + name);
 }

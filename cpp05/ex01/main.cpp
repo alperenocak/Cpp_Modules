@@ -1,22 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-02-27 21:32:46 by yuocak            #+#    #+#             */
-/*   Updated: 2026-02-27 21:32:46 by yuocak           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 #include <iostream>
 
 int main()
 {
-    // Test 1: Successful signing
     try
     {
         Bureaucrat a("Alperen", 1);
@@ -31,7 +18,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 2: Grade too low to sign
     try
     {
         Bureaucrat b("Bob", 100);
@@ -44,7 +30,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 3: Invalid bureaucrat grade
     try
     {
         Bureaucrat c("Invalid", 0);
@@ -54,7 +39,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    // Test 4: Invalid form grade
     try
     {
         Form f3("BadForm", 0, 10);

@@ -23,7 +23,7 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 	if(executor.getGrade() > this->getExecGrade())
 		throw AForm::GradeTooLowException();
 
-    std::cout << "Bıııııııııızzzzzzzzzzzzzzzzzttttt"<<std::endl;
+    std::cout << "Brrrrrrrrrrzzzzzzzzzzzzzzzzztttt"<<std::endl;
     if (time(NULL) % 2 == 0)
         std::cout << this->_target<< " has been robotomized successfully"<<std::endl;
     else

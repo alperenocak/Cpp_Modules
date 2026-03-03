@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yuocak <yuocak@student.42kocaeli.com.tr>   #+#  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-02 14:56:01 by yuocak            #+#    #+#             */
-/*   Updated: 2026-03-02 14:56:01 by yuocak           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef SHRUBBERYCREATIONFORM_HPP 
 #define SHRUBBERYCREATIONFORM_HPP 
 #include <iostream>
