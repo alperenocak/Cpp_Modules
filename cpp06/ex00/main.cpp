@@ -1,5 +1,9 @@
 #include "ScalarConverter.hpp"
-int main()
+int main(int ac, char **av)
 {
-    ScalarConverter::convert("a");
+    
+    if (ac == 2)
+    {
+        ScalarConverter::convert(av[1]);
+    }
 }
