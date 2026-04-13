@@ -66,18 +66,9 @@ void ScalarConverter:: convert(std::string input)
             {
                 std::cout << "int: " << static_cast<int>(d) << std::endl;
             } 
-            if(d == std::floor(d))
-            {
-                std::cout << std::fixed << std::setprecision(1);
-                std::cout << "float: " << static_cast<float>(d)<< "f" << std::endl;
-                std::cout << "double: "<< d << std::endl;
-                std::cout << std::defaultfloat;
-            }
-            else
-            {
-                std::cout << "float: " << static_cast<float>(d)<< "f" << std::endl;
-                std::cout << "double: "<< d << std::endl;
-            }
+            std::cout << std::fixed << std::setprecision(1);
+            std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
+            std::cout << "double: " << d << std::endl;
             break;
         }
         case FLOAT:
@@ -103,17 +94,10 @@ void ScalarConverter:: convert(std::string input)
             {
                 std::cout << "int: " << static_cast<int>(f) << std::endl;
             }
-            if(f == std::floor(f))
-            {
-                std::cout << std::fixed << std::setprecision(1);
-                std::cout << "double: " << static_cast<double>(f) << std::endl;
-                std::cout << "float: " << f << std::endl;
-            }
-            else
-            {
-                std::cout << "float: " << f<< std::endl;
-                std::cout << "double: "<< static_cast<double>(f) << std::endl;
-            }
+            std::cout << std::fixed << std::setprecision(1);
+            std::cout << "float: " << f << "f" << std::endl;
+            std::cout << "double: " << static_cast<double>(f) << std::endl;
+            
             break;
         }
         case IMPOSSIBLE:
