@@ -6,6 +6,23 @@
 #include <iomanip>
 #include <cctype>    
 #include <cmath>
+
+
+ScalarConverter::ScalarConverter(){}
+
+ScalarConverter::ScalarConverter(const ScalarConverter &other){
+    *this = other;
+}
+
+ScalarConverter::~ScalarConverter(){}
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other){
+    (void)other;
+    return *this;
+}
+
+
+
 void ScalarConverter:: convert(std::string input)
 {
     e_type type = detectType(input);
@@ -20,6 +37,7 @@ void ScalarConverter:: convert(std::string input)
             std::cout << std::fixed << std::setprecision(1);
             std::cout << "float: " << static_cast<float>(c)<< "f" << std::endl;
             std::cout << "double: "<< static_cast<double>(c) << std::endl;
+            std::cout.unsetf(std::ios_base::floatfield);
             break;
         }
         case INT:
@@ -41,6 +59,7 @@ void ScalarConverter:: convert(std::string input)
             std::cout << std::fixed << std::setprecision(1);
             std::cout << "float: " << static_cast<float>(i)<< "f" << std::endl;
             std::cout << "double: "<< static_cast<double>(i) << std::endl;
+            std::cout.unsetf(std::ios_base::floatfield);
             break;
         }
         case DOUBLE:
@@ -69,6 +88,7 @@ void ScalarConverter:: convert(std::string input)
             std::cout << std::fixed << std::setprecision(1);
             std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
             std::cout << "double: " << d << std::endl;
+            std::cout.unsetf(std::ios_base::floatfield);
             break;
         }
         case FLOAT:
@@ -94,10 +114,11 @@ void ScalarConverter:: convert(std::string input)
             {
                 std::cout << "int: " << static_cast<int>(f) << std::endl;
             }
+            
             std::cout << std::fixed << std::setprecision(1);
             std::cout << "float: " << f << "f" << std::endl;
             std::cout << "double: " << static_cast<double>(f) << std::endl;
-            
+            std::cout.unsetf(std::ios_base::floatfield);
             break;
         }
         case IMPOSSIBLE:
@@ -111,7 +132,8 @@ void ScalarConverter:: convert(std::string input)
     }
 }
 
-ScalarConverter::e_type ScalarConverter:: detectType(const std::string &input)
+
+ScalarConverter::e_type ScalarConverter::detectType(const std::string &input)
 {
     if(input == "nan" || input == "+inf" || input == "-inf")
         return DOUBLE;
