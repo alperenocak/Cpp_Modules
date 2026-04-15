@@ -1,29 +1,35 @@
 #ifndef SERIALIZATION_HPP
 #define SERIALIZATION_HPP
 
-#include <cstdint>
 #include <iostream>
-struct Data
-{
+#include <stdint.h>
+#include <string>
+
+
+class Data
+{   
+public:
     std::string s1;
-    int         n;
     std::string s2;
+    int n;
 };
 
 
-class Serialization
+class Serializer
 {
 private:
     
-    Serialization();
-    Serialization(const Serialization& other);
-    ~Serialization();
-    Serialization& operator=(const Serialization& other);
+    Serializer();
+    Serializer(const Serializer& other);
+    ~Serializer();
+    Serializer& operator=(const Serializer& other);
     
      
 public:
+
     static uintptr_t serialize(Data* ptr);
     static Data* deserialize(uintptr_t raw);
 };
+
 
 #endif
