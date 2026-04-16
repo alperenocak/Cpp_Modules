@@ -1,4 +1,6 @@
 #include "ScalarConverter.hpp"
+#include <iostream>
+
 int main(int ac, char **av)
 {
     
@@ -6,4 +8,9 @@ int main(int ac, char **av)
     {
         ScalarConverter::convert(av[1]);
     }
+    else
+    {
+        std::cerr << "Usage: ./convert <value>" << std::endl;
+    }
+    return 0;
 }

@@ -22,7 +22,6 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other){
 }
 
 
-
 void ScalarConverter:: convert(std::string input)
 {
     e_type type = detectType(input);

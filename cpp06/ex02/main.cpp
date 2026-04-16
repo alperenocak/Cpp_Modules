@@ -1,8 +1,9 @@
 #include "Base.hpp"
+#include <ctime>
 
 int main()
 {
-    srand(0);
+    srand(time(NULL));
     for (int i = 0; i < 4; i++) {
     Base* p = generate();
     if (p) {

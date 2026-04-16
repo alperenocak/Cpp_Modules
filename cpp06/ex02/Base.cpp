@@ -57,6 +57,4 @@ void identify(Base &p)
     {
         std::cerr << "This is not C"<< '\n';
     }
-    
-    
 }
