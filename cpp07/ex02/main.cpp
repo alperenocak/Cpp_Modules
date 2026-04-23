@@ -2,8 +2,8 @@
 #include "Array.hpp"
 #include <cstdlib>
 
-#define MAX_VAL 100
-int main(int, char**)
+#define MAX_VAL 750
+int main()
 {
     Array<int> numbers(MAX_VAL);
     int* mirror = new int[MAX_VAL];
@@ -14,11 +14,10 @@ int main(int, char**)
         numbers[i] = value;
         mirror[i] = value;
     }
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
-
+    
+    Array<int> tmp = numbers;
+    Array<int> test(tmp);
+    
     for (int i = 0; i < MAX_VAL; i++)
     {
         if (mirror[i] != numbers[i])
@@ -48,6 +47,4 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
-    delete [] mirror;//
-    return 0;
 }
