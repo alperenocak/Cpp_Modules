@@ -1,11 +1,24 @@
 #include "easyfind.hpp"
-
-
+#include <vector>
+#include <list>
 int main()
 {
-    std::vector<int> array;
-    array.push_back(10);
-    array.push_back(20);
-    array.push_back(30);
-    easyfind(array, 20);
+    try {
+        std::vector<int> vec;
+        vec.push_back(10);
+        vec.push_back(20);
+        vec.push_back(30);
+        std::vector<int>::iterator it = easyfind(vec, 20);
+        std::cout << "Bulunan değer (vector): " << *it << std::endl;
+        std::list<int> lst;
+        lst.push_back(100);
+        lst.push_back(200);
+        std::list<int>::iterator lit = easyfind(lst, 200);
+        std::cout << "Bulunan değer (list): " << *lit << std::endl;
+        easyfind(vec, 42);
+    }
+    catch (const std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    return 0;
 }
