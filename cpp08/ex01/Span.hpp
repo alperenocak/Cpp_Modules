@@ -20,7 +20,7 @@ public:
     
     class NotMoreOne: public std::exception{
         virtual const char* what() const throw(){
-            return "Span does not more than one number";
+            return "Span must contain at least two numbers to calculate a span";
         }
     };
 
