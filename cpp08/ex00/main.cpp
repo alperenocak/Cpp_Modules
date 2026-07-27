@@ -9,12 +9,12 @@ int main()
         vec.push_back(20);
         vec.push_back(30);
         std::vector<int>::iterator it = easyfind(vec, 20);
-        std::cout << "Bulunan değer (vector): " << *it << std::endl;
+        std::cout << "Value (vector): " << *it << std::endl;
         std::list<int> lst;
         lst.push_back(100);
         lst.push_back(200);
         std::list<int>::iterator lit = easyfind(lst, 200);
-        std::cout << "Bulunan değer (list): " << *lit << std::endl;
+        std::cout << "Value (list): " << *lit << std::endl;
         easyfind(vec, 42);
     }
     catch (const std::exception &e) {
