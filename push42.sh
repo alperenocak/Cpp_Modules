@@ -123,7 +123,7 @@ else
   echo
   echo "🚀 Pushing subtree to 42..."
   echo "git push using: $REMOTE_42 $BRANCH"
-  git push "$REMOTE_42" "$SPLIT_COMMIT:refs/heads/$BRANCH"
+  git push -f "$REMOTE_42" "$SPLIT_COMMIT:refs/heads/$BRANCH"
   echo "✅ 42 push completed!"
 fi
 
