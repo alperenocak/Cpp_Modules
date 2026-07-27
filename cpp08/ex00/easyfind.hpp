@@ -2,7 +2,6 @@
 #define EASYFIND_HPP
 
 #include <iostream>
-#include <vector>
 #include <exception>
 #include <algorithm>
 
@@ -22,5 +21,6 @@ typename T::iterator easyfind(T &array, int number)
     if(it == array.end())
         throw NoFound();
     return it;
+    
 }
 #endif
