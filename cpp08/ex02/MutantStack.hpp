@@ -5,8 +5,8 @@
 # include <deque>
 # include <iostream>
 
-template <typename T, typename Container = std::deque<T> >
-class MutantStack : public std::stack<T, Container>
+template <typename T>
+class MutantStack : public std::stack<T>
 {
 public:
     MutantStack();
@@ -14,10 +14,10 @@ public:
     MutantStack& operator=(const MutantStack& other);
     ~MutantStack();
 
-    typedef typename std::stack<T, Container>::container_type::iterator iterator;
-    typedef typename std::stack<T, Container>::container_type::const_iterator const_iterator;
-    typedef typename std::stack<T, Container>::container_type::reverse_iterator reverse_iterator;
-    typedef typename std::stack<T, Container>::container_type::const_reverse_iterator const_reverse_iterator;
+    typedef typename std::stack<T>::container_type::iterator iterator;
+    typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+    typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+    typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
 
     iterator begin();
     iterator end();

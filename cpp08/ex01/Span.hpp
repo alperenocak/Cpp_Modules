@@ -34,17 +34,15 @@ public:
     void addNumber(int number);
 
     template <typename InputIterator>
-    void addNumbers(InputIterator begin, InputIterator end);
+    void addNumbers(InputIterator begin, InputIterator end)
+    {
+        unsigned int count = std::distance(begin, end);
+    
+        if (_numbers.size() + count > _maxLimit)
+            throw MaxLimit();
+        _numbers.insert(_numbers.end(), begin, end);
+    }
 };
 
-template <typename InputIterator>
-void Span::addNumbers(InputIterator begin, InputIterator end)
-{
-    unsigned int count = std::distance(begin, end);
-
-    if (_numbers.size() + count > _maxLimit)
-        throw MaxLimit();
-    _numbers.insert(_numbers.end(), begin, end);
-}
 
 #endif
