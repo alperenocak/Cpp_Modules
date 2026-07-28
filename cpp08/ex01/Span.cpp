@@ -30,7 +30,7 @@ int Span::shortestSpan() const
     std::vector<int> diff(v.size());
     std::adjacent_difference(v.begin(), v.end(), diff.begin());
 
-    return *std::min_element(diff.begin() + 1, diff.end());//+1 sebebi ise ilk indexte sayının kendisi var.
+    return *std::min_element(diff.begin() + 1, diff.end());
 }
 
 int Span::longestSpan() const
