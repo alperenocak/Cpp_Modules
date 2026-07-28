@@ -1,13 +1,14 @@
 #include "Span.hpp"
 
+Span::Span() : _maxLimit(0) {}
 
-Span::Span(){}
-Span::Span(unsigned int number): _maxLimit(number)
+Span::Span(unsigned int number) : _maxLimit(number)
 {
     _numbers.reserve(number);
-
 }
-Span::Span(const Span &other): _maxLimit(other._maxLimit), _numbers(other._numbers){}
+
+Span::Span(const Span &other) : _maxLimit(other._maxLimit), _numbers(other._numbers) {}
+
 Span &Span::operator=(const Span &other)
 {
     if (this != &other)
@@ -17,11 +18,11 @@ Span &Span::operator=(const Span &other)
     }
     return *this;
 }
-Span::~Span(){}
+
+Span::~Span() {}
 
 int Span::shortestSpan() const
 {
-    
     if (this->_numbers.size() < 2)
         throw NotMoreOne();
 
@@ -35,18 +36,27 @@ int Span::shortestSpan() const
 
 int Span::longestSpan() const
 {
-    if(this->_numbers.size() < 2)
+    if (this->_numbers.size() < 2)
         throw NotMoreOne();
-    
+
     return (*std::max_element(_numbers.begin(), _numbers.end()) - *std::min_element(_numbers.begin(), _numbers.end()));
 }
 
 void Span::addNumber(int number)
 {
-    if(_numbers.size() >= _maxLimit)
+    if (_numbers.size() >= _maxLimit)
     {
         throw MaxLimit();
     }
     _numbers.push_back(number);
 }
 
+const char* Span::MaxLimit::what() const throw()
+{
+    return "Span is full";
+}
+
+const char* Span::NotMoreOne::what() const throw()
+{
+    return "Span must contain at least two numbers to calculate a span";
+}

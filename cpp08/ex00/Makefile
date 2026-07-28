@@ -1,16 +1,16 @@
- NAME		:= easyfind
- CXX		:= c++
- CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
+NAME		:= easyfind
+CXX		:= c++
+CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
- SRCS		:= main.cpp
+SRCS		:= main.cpp
 
- HDRS		:= easyfind.hpp
+HDRS		:= easyfind.hpp easyfind.tpp
 
- OBJS		:= $(SRCS:.cpp=.o)
+OBJS		:= $(SRCS:.cpp=.o)
 
- all: $(NAME)
+all: $(NAME)
 
- $(NAME): $(OBJS)
+$(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp $(HDRS)

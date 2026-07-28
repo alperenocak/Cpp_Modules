@@ -1,9 +1,9 @@
 #ifndef EASYFIND_TPP
-#define EASYFIND_TPP
+# define EASYFIND_TPP
 
-#include "easyfind.hpp"
+# include "easyfind.hpp"
 
-const char* NoFound::what() const throw() {
+inline const char* NoFound::what() const throw() {
     return "Number not found!";
 }
 
