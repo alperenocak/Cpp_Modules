@@ -1,16 +1,16 @@
- NAME		:= MutantStack
- CXX		:= c++
- CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
+NAME		:= MutantStack
+CXX		:= c++
+CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
- SRCS		:= main.cpp
+SRCS		:= main.cpp
 
- HDRS		:= MutantStack.hpp
+HDRS		:= MutantStack.hpp MutantStack.tpp
 
- OBJS		:= $(SRCS:.cpp=.o)
+OBJS		:= $(SRCS:.cpp=.o)
 
- all: $(NAME)
+all: $(NAME)
 
- $(NAME): $(OBJS)
+$(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp $(HDRS)
@@ -18,8 +18,10 @@
 
 clean:
 	rm -f $(OBJS)
+
 fclean: clean
 	rm -f $(NAME)
+
 re: fclean all
 
 .PHONY: all clean fclean re
