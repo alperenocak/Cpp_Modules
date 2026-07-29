@@ -45,9 +45,7 @@ int Span::longestSpan() const
 void Span::addNumber(int number)
 {
     if (_numbers.size() >= _maxLimit)
-    {
         throw MaxLimit();
-    }
     _numbers.push_back(number);
 }
 

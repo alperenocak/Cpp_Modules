@@ -3,7 +3,7 @@
 
 # include "easyfind.hpp"
 
-inline const char* NoFound::what() const throw() {
+const char* NoFound::what() const throw() {
     return "Number not found!";
 }
 
