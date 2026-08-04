@@ -15,6 +15,11 @@ public:
     BitcoinExchange(const BitcoinExchange &other);
     BitcoinExchange &operator=(const BitcoinExchange &other);
     ~BitcoinExchange();
+
+    bool    loadDatabase(const std::string &fname);
+    bool    isValidDate(const std::string &dateStr);
+    
+
 };
 
 
