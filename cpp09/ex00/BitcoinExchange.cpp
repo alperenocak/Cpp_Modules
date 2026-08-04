@@ -62,7 +62,7 @@ bool BitcoinExchange::isValidDate(const std::string &dateStr)
         return false;
     }
 
-    if(dateStr[4] != '-' && dateStr[7] != '-')
+    if(dateStr[4] != '-' || dateStr[7] != '-')
     {
         std::cout << "tire yok" << std::endl;
         return false;
@@ -75,4 +75,26 @@ bool BitcoinExchange::isValidDate(const std::string &dateStr)
         std::cout << "sayi değil" << std::endl;
         return false;
     }
+
+    int day = std::atoi(dateStr.substr(8,2).c_str());
+    int month = std::atoi(dateStr.substr(5.2).c_str());
+    int year = std::atoi(dateStr.substr(0,4).c_str());
+
+    if(month < 1 || month > 12)
+        return false;
+    if(day < 1 || day > 31)
+        return false;
+    if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+        return false;
+    
+    if (month == 2)
+    {
+        bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        if (isLeap && day > 29)
+            return false;
+        if (!isLeap && day > 28)
+            return false;
+    }
+
+    return true;
 }
