@@ -18,7 +18,7 @@ public:
 
     bool    loadDatabase(const std::string &fname);
     bool    isValidDate(const std::string &dateStr);
-    
+    bool    isValidValue(const std::string &value);
 
 };
 

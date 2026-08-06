@@ -77,7 +77,7 @@ bool BitcoinExchange::isValidDate(const std::string &dateStr)
     }
 
     int day = std::atoi(dateStr.substr(8,2).c_str());
-    int month = std::atoi(dateStr.substr(5.2).c_str());
+    int month = std::atoi(dateStr.substr(5,2).c_str());
     int year = std::atoi(dateStr.substr(0,4).c_str());
 
     if(month < 1 || month > 12)
@@ -96,5 +96,32 @@ bool BitcoinExchange::isValidDate(const std::string &dateStr)
             return false;
     }
 
+    return true;
+}
+
+bool BitcoinExchange::isValidValue(const std::string &value)
+{
+    char* end;
+    double tmp_value;
+
+    tmp_value = std::strtod(value.c_str(), &end);
+    if (*end != '\0' || value.empty())
+    {
+        std::cerr << "Error: bad input" << std::endl;
+        return false;
+    }
+        
+    if(tmp_value < 0)
+    {
+        std::cerr << "Error: not a positive number" << std::endl;
+        return false ;
+    }
+    
+    if (tmp_value > 1000)
+    {
+        std::cerr << "Error: too large a number" << std::endl;
+        return false;
+    }
+    
     return true;
 }
