@@ -129,6 +129,15 @@ float BitcoinExchange::getRate(const std::string &date)
     return it->second;
 }
 
+std::string BitcoinExchange::trimSpace(const std::string &str)
+{
+    size_t first = str.find_first_not_of(" \t");
+    if (first == std::string::npos)
+        return "";
+    size_t last = str.find_last_not_of(" \t");
+    return str.substr(first, (last - first + 1));
+}
+
 void BitcoinExchange::processInputFile(const std::string &filename)
 {
     std::ifstream file(filename.c_str());
@@ -143,19 +152,22 @@ void BitcoinExchange::processInputFile(const std::string &filename)
     std::string value;
     while (std::getline(file, line))
     {
+        if (line.empty())
+            continue;
+            
         size_t strpos = line.find('|');
         if(strpos == std::string::npos)
         {
             std::cerr << "Error: bad input => " << line << std::endl;
             continue;
         }
-        date = line.substr(0, strpos - 1);
+        date = trimSpace(line.substr(0, strpos));
         if(!isValidDate(date))
         {
             std::cerr << "Error: bad input => " << date << std::endl;
             continue;
         }
-        value = line.substr(strpos + 2, line.size() - 1);
+        value = trimSpace(line.substr(strpos + 1));
         if(!isValidValue(value))
             continue;
         float amount = static_cast<float>(std::atof(value.c_str()));
