@@ -1,13 +1,13 @@
 #include "RPN.hpp"
 #include <cctype>
 
-int RPN::rpnFunciton(const std::string &input, RPN rpn)
+int RPN::rpnFunciton(const std::string &input)
 {
     if(input.empty())
         throw ErrorHandle();
     int k;
     int l;
-    for (int i = 0; i < input.size(); i++)
+    for (size_t i = 0; i < input.size(); i++)
     {
         int digit;
         if (std::isspace(input[i]))
@@ -21,14 +21,14 @@ int RPN::rpnFunciton(const std::string &input, RPN rpn)
         }
         else if ((input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/'))
         {
-            if (this->_stack.size() >= 2)
+            if (this->_stack.size() < 2)
             {
                 throw ErrorHandle();
             }
             
-            k = _stack.top();
-            _stack.pop();
             l = _stack.top();
+            _stack.pop();
+            k = _stack.top();
             _stack.pop();
 
             if (input[i] == '+')
@@ -45,6 +45,11 @@ int RPN::rpnFunciton(const std::string &input, RPN rpn)
             }
             else if(input[i] == '/')
             {
+                if (l == 0)
+                {
+                    throw ErrorHandle();
+                }
+                
                 _stack.push(k/l);
             }
             
@@ -52,6 +57,9 @@ int RPN::rpnFunciton(const std::string &input, RPN rpn)
         else
             throw ErrorHandle();
     }
+    if (this->_stack.size() != 1)
+            throw ErrorHandle();
+    return(this->_stack.top());
 }
 
 const char *RPN::ErrorHandle::what() const throw()

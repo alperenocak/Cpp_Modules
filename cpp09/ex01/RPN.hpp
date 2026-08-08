@@ -14,7 +14,7 @@ public:
        virtual const char *what() const throw();
     };
 
-    int rpnFunciton(const std::string &input, RPN rpn);
+    int rpnFunciton(const std::string &input);
 };
 
 
