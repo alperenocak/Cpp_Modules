@@ -1,6 +1,7 @@
 *.o
 *.d
 a.out
+*.md
 
 # Compiled executables (no extension, in exercise dirs)
 cpp00/ex00/megaphone
