@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ford-Johnson Algoritması İnteraktif Analiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals & Deep Slate -->
+    <!-- Application Structure Plan: 
+        1. Giriş: Algoritmanın amacını ve 'Minimum Comparison' kavramını açıklayan görsel özet.
+        2. İnteraktif Stepper: 9 elemanlı bir dizinin adım adım sıralanma sürecini görselleştiren ana modül.
+        3. Jacobsthal Laboratuvarı: Sayıların arama havuzlarını nasıl optimize ettiğini gösteren interaktif hesaplayıcı.
+        4. Performans Kıyaslama: FJ vs Merge Sort vs Insertion Sort verilerinin dinamik grafiği.
+        5. C++ Entegrasyon Rehberi: Veri yapıları ve bellek yönetimi üzerine teknik özet.
+        Seçilen yapı, raporun lineer akışını etkileşimli bir deneyime dönüştürerek kullanıcının 'neden' sorusuna yanıt bulmasını sağlar.
+    -->
+    <!-- Visualization & Content Choices: 
+        - Algorithm Flow -> Interactive Step System -> Kullanıcı kontrollü ilerleme (Justification: Karmaşık mantığı parçalara ayırmak).
+        - Performance -> Chart.js Line Chart -> FJ vs Teorik Sınır (Justification: Verimliliği kanıtlamak).
+        - Jacobsthal Logic -> Dynamic Grid -> Grupların asimetrik yapısını göstermek.
+        - NO SVG/Mermaid: Tüm görseller CSS, Canvas ve HTML5 öğeleriyle oluşturulmuştur.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        .step-active {
+            border-left: 4px solid #d97706;
+            background-color: #fef3c7;
+        }
+
+        .node {
+            transition: all 0.3s ease;
+        }
+
+        .node-highlight {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(217, 119, 6, 0.4);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Ford-Johnson (Merge-Insertion) Algoritması</h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Karşılaştırma maliyetini mutlak minimuma indiren matematiksel bir şaheser. C++ Module 09 için interaktif bir rehber.
+            </p>
+        </header>
+
+        <!-- Bölüm 1: Giriş ve Vizyon -->
+        <section class="mb-16 bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-2xl font-semibold mb-4 border-b-2 border-amber-200 pb-2 inline-block">Neden Ford-Johnson?</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        Standart algoritmalar genellikle işlem süresine odaklanırken, Ford-Johnson <strong>bilgi teorisi (Information Theory)</strong> sınırlarına odaklanır. Eğer her karşılaştırma (A > B mi?) bir maliyetse, en az kaç soruyla diziyi sıralayabiliriz?
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="bg-amber-100 text-amber-700 rounded px-2 mr-3 font-bold">!</span>
+                            <span><strong>Optimal Karşılaştırma:</strong> N ≤ 11 için teorik minimuma ulaşır.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-amber-100 text-amber-700 rounded px-2 mr-3 font-bold">!</span>
+                            <span><strong>Asimetrik Mantık:</strong> Jacobsthal dizisini kullanarak ikili arama kapasitesini israf etmez.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chart-container flex items-center justify-center bg-slate-50 rounded-xl p-4">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+            </div>
+            <p class="mt-4 text-xs text-slate-400 italic text-center">Grafik: Eleman sayısı (N) arttıkça Ford-Johnson ve Merge Sort arasındaki karşılaştırma farkı.</p>
+        </section>
+
+        <!-- Bölüm 2: İnteraktif Adım Adım Simülasyon -->
+        <section class="mb-16">
+            <div class="bg-slate-900 text-white rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden relative">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-2">Algoritma Simülatörü</h2>
+                    <p class="text-slate-400 mb-8">9 Elemanlı Örnek: [7, 3, 9, 2, 8, 5, 1, 6, 4]</p>
+                    
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <!-- Kontrol Paneli -->
+                        <div class="w-full lg:w-1/3 space-y-4">
+                            <div id="step-1" class="p-4 rounded-xl cursor-pointer hover:bg-slate-800 transition step-active" onclick="showStep(1)">
+                                <h3 class="font-semibold text-amber-400">1. Eşleştirme (Pairing)</h3>
+                                <p class="text-xs text-slate-400">Elemanlar ikili gruplanır ve büyük/küçük belirlenir.</p>
+                            </div>
+                            <div id="step-2" class="p-4 rounded-xl cursor-pointer hover:bg-slate-800 transition" onclick="showStep(2)">
+                                <h3 class="font-semibold text-amber-400">2. Özyineleme (Recursion)</h3>
+                                <p class="text-xs text-slate-400">Büyük elemanlar kendi içinde sıralanır.</p>
+                            </div>
+                            <div id="step-3" class="p-4 rounded-xl cursor-pointer hover:bg-slate-800 transition" onclick="showStep(3)">
+                                <h3 class="font-semibold text-amber-400">3. Ana Zincir (Main Chain)</h3>
+                                <p class="text-xs text-slate-400">Sıralı büyükler ve ilk küçük (b1) ile temel kurulur.</p>
+                            </div>
+                            <div id="step-4" class="p-4 rounded-xl cursor-pointer hover:bg-slate-800 transition" onclick="showStep(4)">
+                                <h3 class="font-semibold text-amber-400">4. Jacobsthal Insertion</h3>
+                                <p class="text-xs text-slate-400">Kalan b elemanları sihirli bir sırayla eklenir.</p>
+                            </div>
+                        </div>
+
+                        <!-- Görselleştirme Alanı -->
+                        <div class="w-full lg:w-2/3 bg-slate-800 rounded-2xl p-6 min-h-[400px] flex flex-col items-center justify-center">
+                            <div id="viz-content" class="w-full flex flex-wrap justify-center gap-4 items-center">
+                                <!-- JS will populate this -->
+                            </div>
+                            <div id="viz-desc" class="mt-8 text-center text-slate-300 max-w-md">
+                                Başlamak için soldan bir adım seçin.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bölüm 3: Jacobsthal Laboratuvarı -->
+        <section class="mb-16 grid md:grid-cols-2 gap-8">
+            <div class="bg-amber-50 rounded-2xl p-8 border border-amber-100">
+                <h2 class="text-2xl font-semibold mb-6 text-amber-900">Neden Jacobsthal?</h2>
+                <div class="space-y-4 text-amber-900/80 leading-relaxed">
+                    <p>
+                        İkili arama (binary search), havuz boyutu <strong>2<sup>k</sup>-1</strong> olduğunda en verimlidir. Örneğin 3, 7, 15... 
+                    </p>
+                    <p>
+                        Jacobsthal sayıları, bekleyen elemanları (pending) sisteme öyle bir sırayla sokar ki, ekleme yaptığımız her an arama havuzumuz bu "israfsız" sayılara tam denk gelir.
+                    </p>
+                    <div class="bg-white p-4 rounded-lg shadow-inner font-mono text-center">
+                        J<sub>n</sub> = J<sub>n-1</sub> + 2J<sub>n-2</sub>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                <h3 class="font-bold mb-4 text-slate-800">Jacobsthal Ekleme Sırası Üretici</h3>
+                <div class="flex gap-2 mb-6">
+                    <input type="number" id="pendingInput" value="8" min="1" max="25" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <button onclick="generateJacobsthal()" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">Hesapla</button>
+                </div>
+                <div id="jacobResult" class="flex flex-wrap gap-2">
+                    <!-- Dynamic result -->
+                </div>
+                <p class="mt-4 text-xs text-slate-500 italic">Girilen bekleyen eleman sayısına göre optimal insertion sırasını hesaplar.</p>
+            </div>
+        </section>
+
+        <!-- Bölüm 4: C++ Module 09 Teknik Detaylar -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Teknik Uygulama Notları</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 font-bold">01</div>
+                    <h4 class="font-bold mb-2">std::vector vs std::deque</h4>
+                    <p class="text-sm text-slate-600">Vector ardışık bellek nedeniyle cache-friendly'dir ancak insertion maliyetlidir. Deque ise parçalı yapısıyla ortaya eklemelerde daha esnektir ancak cache miss riski taşır.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 font-bold">02</div>
+                    <h4 class="font-bold mb-2">Iterator Invalidation</h4>
+                    <p class="text-sm text-slate-600">Her insertion işleminde iteratörler geçersiz olabilir. Bu yüzden <code>std::distance</code> veya index tabanlı takip kullanmak C++09 için kritik önemdedir.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-4 font-bold">03</div>
+                    <h4 class="font-bold mb-2">Pairing Mantığı</h4>
+                    <p class="text-sm text-slate-600">Recursion sonrasında büyükler yer değiştirdiğinde küçükleri onlarla senkronize tutmak için <code>std::pair</code> veya custom struct yapısı kaçınılmazdır.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cheat Sheet -->
+        <footer class="bg-slate-100 rounded-3xl p-8 mb-12 border border-slate-200">
+            <h2 class="text-xl font-bold mb-6 flex items-center">
+                <span class="mr-2">📝</span> Ford-Johnson Hızlı Referans Kartı
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-white p-3 rounded-lg shadow-sm">
+                    <p class="text-xs text-slate-500 uppercase font-bold">Invariant</p>
+                    <p class="font-mono font-bold text-amber-700">b<sub>i</sub> < a<sub>i</sub></p>
+                </div>
+                <div class="bg-white p-3 rounded-lg shadow-sm">
+                    <p class="text-xs text-slate-500 uppercase font-bold">İlk Adım</p>
+                    <p class="font-bold text-slate-700">b<sub>1</sub> Bedava</p>
+                </div>
+                <div class="bg-white p-3 rounded-lg shadow-sm">
+                    <p class="text-xs text-slate-500 uppercase font-bold">Binary Limit</p>
+                    <p class="font-mono font-bold text-slate-700">2<sup>k</sup> - 1</p>
+                </div>
+                <div class="bg-white p-3 rounded-lg shadow-sm">
+                    <p class="text-xs text-slate-500 uppercase font-bold">Straggler</p>
+                    <p class="font-bold text-slate-700">En Son Ekle</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Data for Chart
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        const labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+        const fjData = [0, 1, 3, 5, 7, 10, 13, 16, 19, 22, 26, 30, 34, 38, 42, 46];
+        const mergeData = [0, 1, 3, 5, 8, 11, 14, 17, 21, 25, 29, 33, 37, 41, 45, 49];
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ford-Johnson (Worst Case)',
+                    data: fjData,
+                    borderColor: '#d97706',
+                    backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }, {
+                    label: 'Standard Merge Sort',
+                    data: mergeData,
+                    borderColor: '#64748b',
+                    borderDash: [5, 5],
+                    tension: 0.3
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'Karşılaştırma Sayısı' } },
+                    x: { title: { display: true, text: 'Eleman Sayısı (N)' } }
+                }
+            }
+        });
+
+        // Step Management
+        function showStep(step) {
+            const content = document.getElementById('viz-content');
+            const desc = document.getElementById('viz-desc');
+            
+            // UI Update
+            document.querySelectorAll('[id^="step-"]').forEach(el => el.classList.remove('step-active'));
+            document.getElementById(`step-${step}`).classList.add('step-active');
+
+            content.innerHTML = '';
+            
+            if (step === 1) {
+                const pairs = [[7,3], [9,2], [8,5], [1,6]];
+                pairs.forEach(p => {
+                    content.innerHTML += `
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="flex gap-1">
+                                <div class="w-10 h-10 bg-slate-700 flex items-center justify-center rounded border border-slate-500">${p[0]}</div>
+                                <div class="w-10 h-10 bg-slate-700 flex items-center justify-center rounded border border-slate-500">${p[1]}</div>
+                            </div>
+                            <div class="text-amber-500 text-xs font-bold">↑ ${Math.max(...p)} Kazandı</div>
+                        </div>
+                    `;
+                });
+                desc.innerText = "Elemanlar ikili eşleşir. Her eşleşme tam olarak 1 karşılaştırma harcar. Büyük olanlar 'A grubu' iskeletini oluşturacaktır.";
+            } else if (step === 2) {
+                const sortedA = [6, 7, 8, 9];
+                sortedA.forEach(a => {
+                    content.innerHTML += `<div class="w-12 h-12 bg-amber-600 flex items-center justify-center rounded-full font-bold shadow-lg node-highlight">${a}</div>`;
+                });
+                desc.innerText = "Kazanan büyük elemanlar (A grubu) özyinelemeli olarak fonksiyona geri döner. Geri geldiklerinde artık kusursuz bir ana iskeletimiz vardır.";
+            } else if (step === 3) {
+                const chain = [1, 6, 7, 8, 9];
+                chain.forEach((val, i) => {
+                    content.innerHTML += `<div class="w-12 h-12 ${i === 0 ? 'bg-green-600' : 'bg-amber-600'} flex items-center justify-center rounded-lg font-bold">${val}</div>`;
+                    if (i < chain.length - 1) content.innerHTML += `<span class="text-slate-500 font-bold">&lt;</span>`;
+                });
+                desc.innerText = "Ana zincir kurulur. b1 elemanı (6 ile eşleşen 1), a1'den küçük olduğu garanti olduğu için bedavaya en başa eklenir.";
+            } else if (step === 4) {
+                const order = ["b3 (5)", "b2 (3)", "b5 (4-Straggler)", "b4 (2)"];
+                order.forEach(b => {
+                    content.innerHTML += `<div class="p-3 bg-slate-100 text-slate-900 rounded font-mono text-sm border-b-4 border-amber-500">${b}</div>`;
+                });
+                desc.innerText = "Kalan 'b' elemanları Jacobsthal sırasıyla (b3, b2, b5...) ana zincire ikili arama ile eklenir. Bu sıra, her seferinde optimal arama havuzunu garantiler.";
+            }
+        }
+
+        // Jacobsthal Generator
+        function generateJacobsthal() {
+            const n = parseInt(document.getElementById('pendingInput').value);
+            const container = document.getElementById('jacobResult');
+            container.innerHTML = '';
+            
+            let j = [0, 1];
+            while (j[j.length-1] < n + 2) {
+                j.push(j[j.length-1] + 2 * j[j.length-2]);
+            }
+
+            // Grup boyutlarını hesapla ve sırayı çıkar
+            let sequence = [];
+            let lastJ = 1;
+            for(let i=3; i < j.length; i++) {
+                let currentJ = j[i];
+                if (currentJ > n + 1) currentJ = n + 1;
+                
+                for(let k = currentJ; k > lastJ; k--) {
+                    if (k-1 > 0) sequence.push(k-1);
+                }
+                lastJ = currentJ;
+                if (currentJ >= n + 1) break;
+            }
+
+            sequence.forEach(num => {
+                const el = document.createElement('div');
+                el.className = 'px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-bold border border-amber-200';
+                el.innerText = `b${num}`;
+                container.appendChild(el);
+            });
+        }
+
+        // Initialize
+        showStep(1);
+        generateJacobsthal();
+    </script>
+</body>
+</html>
