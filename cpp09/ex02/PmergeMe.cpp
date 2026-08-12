@@ -8,6 +8,14 @@ PmergeMe::~PmergeMe()
 {
 }
 
+size_t PmergeMe::getJacobsthal(size_t n)
+{
+    if(n== 0) return;
+    if(n == 1) return;
+    
+    return getJacobsthal(n-1) + 2 * getJacobsthal(n -2);
+}
+
 void PmergeMe::printVector(const std::string& prefix, const std::vector<int>& vec)
 {
     std::cout << prefix;

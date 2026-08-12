@@ -5,6 +5,9 @@
 #include <vector>
 #include <deque>
 #include <cstdlib>
+#include <ctime>
+#include <algorithm>
+
 class PmergeMe
 {
 private:
@@ -23,16 +26,20 @@ public:
     template <typename Container>
     void fordJohnsonAlgorithm(Container& container)
     {
+        container.size();
+        if(container.size() < 1) return;
+
+        typedef typename Container::value_type ValueType;
+        typedef std::pair<ValueType, ValueType> PairType;
+        typedef std::vector<PairType> PairContainer;
+
         
-        if()
+        PairContainer pairs;
+        int 
     }
     
     void run(int ac, char** av);
 
 };
 
-
-
 #endif
-
-
