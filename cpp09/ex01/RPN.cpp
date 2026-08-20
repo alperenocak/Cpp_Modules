@@ -1,65 +1,87 @@
 #include "RPN.hpp"
 #include <cctype>
+#include <sstream>
+#include <climits>
 
-int RPN::rpnFunciton(const std::string &input)
+RPN::RPN()
 {
-    if(input.empty())
-        throw ErrorHandle();
-    int k;
-    int l;
-    for (size_t i = 0; i < input.size(); i++)
+}
+
+RPN::RPN(const RPN &other) : _stack(other._stack)
+{
+}
+
+RPN &RPN::operator=(const RPN &other)
+{
+    if (this != &other)
     {
-        int digit;
-        if (std::isspace(input[i]))
-            continue;
-        
-        if (std::isdigit(input[i]))
+        this->_stack = other._stack;
+    }
+    return *this;
+}
+
+RPN::~RPN()
+{
+}
+
+int RPN::calculate(const std::string &input)
+{
+    if (input.empty())
+        throw ErrorHandle();
+
+    while (!_stack.empty())
+        _stack.pop();
+
+    std::stringstream ss(input);
+    std::string token;
+    bool hasToken = false;
+
+    while (ss >> token)
+    {
+        hasToken = true;
+        if (token.length() == 1 && std::isdigit(token[0]))
         {
-            digit = input[i] - '0';
-            this->_stack.push(digit);
-            
+            _stack.push(token[0] - '0');
         }
-        else if ((input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/'))
+        else if (token.length() == 1 && (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/'))
         {
-            if (this->_stack.size() < 2)
-            {
+            if (_stack.size() < 2)
                 throw ErrorHandle();
-            }
-            
-            l = _stack.top();
+
+            int l = _stack.top();
             _stack.pop();
-            k = _stack.top();
+            int k = _stack.top();
             _stack.pop();
 
-            if (input[i] == '+')
-            {
-                _stack.push(k+l);
-            }
-            else if (input[i] == '-')
-            {
-                _stack.push(k-l);
-            }
-            else if (input[i] == '*')
-            {
-                _stack.push(k *l);
-            }
-            else if(input[i] == '/')
+            long long res = 0;
+            if (token[0] == '+')
+                res = static_cast<long long>(k) + l;
+            else if (token[0] == '-')
+                res = static_cast<long long>(k) - l;
+            else if (token[0] == '*')
+                res = static_cast<long long>(k) * l;
+            else if (token[0] == '/')
             {
                 if (l == 0)
-                {
                     throw ErrorHandle();
-                }
-                
-                _stack.push(k/l);
+                res = static_cast<long long>(k) / l;
             }
-            
+
+            if (res > INT_MAX || res < INT_MIN)
+                throw ErrorHandle();
+
+            _stack.push(static_cast<int>(res));
         }
         else
+        {
             throw ErrorHandle();
+        }
     }
-    if (this->_stack.size() != 1)
-            throw ErrorHandle();
-    return(this->_stack.top());
+
+    if (!hasToken || _stack.size() != 1)
+        throw ErrorHandle();
+
+    return _stack.top();
 }
 
 const char *RPN::ErrorHandle::what() const throw()

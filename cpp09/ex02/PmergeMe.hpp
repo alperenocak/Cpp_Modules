@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <sstream>
 #include <cctype>
+#include <cerrno>
 
 class PmergeMe
 {
@@ -19,6 +20,19 @@ private:
     bool                parseInput(int ac, char **av);
     static size_t       getJacobsthal(size_t n);
     static void         printVector(const std::string& prefix, const std::vector<int>& vec);
+
+    template <typename C>
+    struct PairContainerHelper;
+
+    template <typename T, typename A>
+    struct PairContainerHelper< std::vector<T, A> > {
+        typedef std::vector< std::pair<T, T> > type;
+    };
+
+    template <typename T, typename A>
+    struct PairContainerHelper< std::deque<T, A> > {
+        typedef std::deque< std::pair<T, T> > type;
+    };
 
 public:
     PmergeMe();
@@ -33,11 +47,10 @@ public:
             return;
 
         typedef typename Container::value_type ValueType;
-        typedef std::pair<ValueType, ValueType> PairType;
-        typedef std::vector<PairType> PairContainer;
+        typedef typename PairContainerHelper<Container>::type PairContainer;
 
         bool hasStraggler = (container.size() % 2 != 0);
-        ValueType straggler;
+        ValueType straggler = 0;
         if (hasStraggler)
         {
             straggler = container.back();
@@ -62,7 +75,7 @@ public:
 
         fordJohnsonAlgorithm(mainChain);
 
-        PairContainer sortedPairs;
+        PairContainer sortedPairs; 
         for (typename Container::iterator it = mainChain.begin(); it != mainChain.end(); ++it)
         {
             for (typename PairContainer::iterator pit = pairs.begin(); pit != pairs.end(); ++pit)
@@ -85,7 +98,7 @@ public:
         }
 
         size_t lastJacob = 1;
-        size_t jacobIndex = 2;
+        size_t jacobIndex = 3;
         size_t P = pairs.size();
 
         while (lastJacob < P)

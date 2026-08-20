@@ -3,19 +3,27 @@
 
 #include <iostream>
 #include <stack>
+#include <string>
 #include <exception>
+
 class RPN
 {
 private:
     std::stack<int> _stack;
+
 public:
-    class ErrorHandle: public std::exception
+    class ErrorHandle : public std::exception
     {
-       virtual const char *what() const throw();
+    public:
+        virtual const char *what() const throw();
     };
 
-    int rpnFunciton(const std::string &input);
-};
+    RPN();
+    RPN(const RPN &other);
+    RPN &operator=(const RPN &other);
+    ~RPN();
 
+    int calculate(const std::string &input);
+};
 
 #endif

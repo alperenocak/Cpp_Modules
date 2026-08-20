@@ -42,9 +42,20 @@ size_t PmergeMe::getJacobsthal(size_t n)
 void PmergeMe::printVector(const std::string& prefix, const std::vector<int>& vec)
 {
     std::cout << prefix;
-    for (size_t i = 0; i < vec.size(); i++)
+    if (vec.size() > 5)
     {
-        std::cout << vec[i] << (i + 1 == vec.size() ? "" : " ");
+        for (size_t i = 0; i < 5; i++)
+        {
+            std::cout << vec[i] << " ";
+        }
+        std::cout << "[...]";
+    }
+    else
+    {
+        for (size_t i = 0; i < vec.size(); i++)
+        {
+            std::cout << vec[i] << (i + 1 == vec.size() ? "" : " ");
+        }
     }
     std::cout << std::endl;
 }
@@ -56,27 +67,54 @@ bool PmergeMe::parseInput(int ac, char **av)
         std::string arg = av[i];
         if (arg.empty())
             return false;
+        
+        bool hasTokenInArg = false;
         for (size_t j = 0; j < arg.length(); j++)
         {
             if (!std::isdigit(arg[j]) && !std::isspace(arg[j]) && arg[j] != '+')
                 return false;
         }
+
         std::stringstream ss(arg);
         std::string token;
         while (ss >> token)
         {
-            for (size_t j = 0; j < token.length(); j++)
+            size_t start = 0;
+            if (token[0] == '+')
             {
-                if (j == 0 && token[j] == '+') continue;
+                if (token.length() == 1)
+                    return false;
+                start = 1;
+            }
+
+            for (size_t j = start; j < token.length(); j++)
+            {
                 if (!std::isdigit(token[j]))
                     return false;
             }
-            long val = std::atol(token.c_str());
-            if (val <= 0 || val > 2147483647)
+
+            while (start < token.length() && token[start] == '0')
+                start++;
+
+            if (start == token.length())
                 return false;
+
+            if (token.length() - start > 10)
+                return false;
+
+            char *endptr = NULL;
+            errno = 0;
+            long val = std::strtol(token.c_str(), &endptr, 10);
+            if (errno != 0 || *endptr != '\0' || val <= 0 || val > 2147483647)
+                return false;
+
+            hasTokenInArg = true;
             _vectorList.push_back(static_cast<int>(val));
             _dequeList.push_back(static_cast<int>(val));
         }
+
+        if (!hasTokenInArg)
+            return false;
     }
     return !_vectorList.empty();
 }
@@ -109,4 +147,3 @@ void PmergeMe::run(int ac, char **av)
     std::cout << "Time to process a range of " << _dequeList.size()
               << " elements with std::deque : " << timeDeq << " us" << std::endl;
 }
-

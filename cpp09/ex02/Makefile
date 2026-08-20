@@ -6,9 +6,9 @@ HDRS= PmergeMe.hpp
 
 OBJS=$(SRCS:.cpp=.o)
 
- all: $(NAME)
+all: $(NAME)
 
- $(NAME): $(OBJS)
+$(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp $(HDRS)

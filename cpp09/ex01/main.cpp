@@ -2,22 +2,22 @@
 
 int main(int ac, char **av)
 {
-    if(ac < 2)
+    if (ac != 2)
     {
-        std::cerr << "you have min two parameters"<<std::endl;
-        return 0;
+        std::cerr << "Error" << std::endl;
+        return 1;
     }
 
     try
     {
         RPN rpn;
-        std::string input = av[1];
-        int result = rpn.rpnFunciton(input);
+        int result = rpn.calculate(av[1]);
         std::cout << result << std::endl;
-        return result;   
+        return 0;
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << e.what() << std::endl;
+        return 1;
     }
 }
