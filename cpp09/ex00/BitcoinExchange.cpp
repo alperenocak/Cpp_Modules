@@ -137,21 +137,6 @@ bool BitcoinExchange::loadDatabase(const std::string &fname)
         return false;
     }
 
-    std::string trimmedLine = trimSpace(line);
-    if (trimmedLine != "date,exchange_rate")
-    {
-        size_t comma = line.find(',');
-        if (comma != std::string::npos)
-        {
-            std::string date = trimSpace(line.substr(0, comma));
-            std::string strPrice = trimSpace(line.substr(comma + 1));
-            char* end;
-            double price = std::strtod(strPrice.c_str(), &end);
-            if (isValidDate(date) && *end == '\0' && price >= 0)
-                _values[date] = price;
-        }
-    }
-
     while (std::getline(file, line))
     {
         if (line.empty())
