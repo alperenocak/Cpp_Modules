@@ -24,14 +24,14 @@ private:
     template <typename C>
     struct PairContainerHelper;
 
-    template <typename T, typename A>
-    struct PairContainerHelper< std::vector<T, A> > {
-        typedef std::vector< std::pair<T, T> > type;
+    template <>
+    struct PairContainerHelper< std::vector<int> > {
+        typedef std::vector< std::pair<int, int> > type;
     };
 
-    template <typename T, typename A>
-    struct PairContainerHelper< std::deque<T, A> > {
-        typedef std::deque< std::pair<T, T> > type;
+    template <>
+    struct PairContainerHelper< std::deque<int> > {
+        typedef std::deque< std::pair<int, int> > type;
     };
 
 public:
@@ -46,11 +46,10 @@ public:
         if (container.size() <= 1)
             return;
 
-        typedef typename Container::value_type ValueType;
         typedef typename PairContainerHelper<Container>::type PairContainer;
 
         bool hasStraggler = (container.size() % 2 != 0);
-        ValueType straggler = 0;
+        int straggler = 0;
         if (hasStraggler)
         {
             straggler = container.back();
@@ -108,8 +107,8 @@ public:
 
             for (size_t i = target; i > lastJacob; --i)
             {
-                ValueType elementToInsert = pairs[i - 1].second;
-                ValueType correspondingMax = pairs[i - 1].first;
+                int elementToInsert = pairs[i - 1].second;
+                int correspondingMax = pairs[i - 1].first;
 
                 typename Container::iterator bound = std::lower_bound(S.begin(), S.end(), correspondingMax);
                 typename Container::iterator pos = std::lower_bound(S.begin(), bound, elementToInsert);

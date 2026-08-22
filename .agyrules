@@ -1,0 +1,15 @@
+# Antigravity CLI Proje Kuralları (Workspace Rules)
+
+1. **Hafıza ve Bağlam (Context & Memory):**
+   - Her yeni oturum başladığında, projenin kök dizinindeki `MEMORY.md` dosyasını referans al.
+   - Önemli mimari kararlar, tamamlanan modüller veya yeni yol haritaları belirlendiğinde `MEMORY.md` dosyasındaki ilgili bölümleri ve "Oturum Geçmişi" kısmını güncelle.
+
+2. **42 School Standartları:**
+   - Tüm C++ kodları `C++98` standardında (`-Wall -Wextra -Werror -std=c++98`) olmalıdır.
+   - Modern C++ (C++11+) sözdizimi kullanılmamalıdır.
+   - Sınıflar Ortodoks Kanonik Form'a (OCF) uymalıdır.
+   - Bellek sızıntısı (memory leak) olmamalıdır.
+
+3. **İletişim:**
+   - Kullanıcıyla Türkçe ve anlaşılır, pedagojik bir dille iletişim kur.
+   - Kod değişikliklerini yapmadan önce mantığını ve rationale'ini açıkla.
