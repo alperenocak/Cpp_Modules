@@ -21,19 +21,6 @@ private:
     static size_t       getJacobsthal(size_t n);
     static void         printVector(const std::string& prefix, const std::vector<int>& vec);
 
-    template <typename C>
-    struct PairContainerHelper;
-
-    template <>
-    struct PairContainerHelper< std::vector<int> > {
-        typedef std::vector< std::pair<int, int> > type;
-    };
-
-    template <>
-    struct PairContainerHelper< std::deque<int> > {
-        typedef std::deque< std::pair<int, int> > type;
-    };
-
 public:
     PmergeMe();
     PmergeMe(const PmergeMe& src);
@@ -46,8 +33,6 @@ public:
         if (container.size() <= 1)
             return;
 
-        typedef typename PairContainerHelper<Container>::type PairContainer;
-
         bool hasStraggler = (container.size() % 2 != 0);
         int straggler = 0;
         if (hasStraggler)
@@ -56,49 +41,49 @@ public:
             container.pop_back();
         }
 
-        PairContainer pairs;
         Container mainChain;
+        Container pend;
         for (size_t i = 0; i < container.size(); i += 2)
         {
             if (container[i] > container[i + 1])
             {
-                pairs.push_back(std::make_pair(container[i], container[i + 1]));
                 mainChain.push_back(container[i]);
+                pend.push_back(container[i + 1]);
             }
             else
             {
-                pairs.push_back(std::make_pair(container[i + 1], container[i]));
                 mainChain.push_back(container[i + 1]);
+                pend.push_back(container[i]);
             }
         }
 
+        Container originalMain = mainChain;
         fordJohnsonAlgorithm(mainChain);
 
-        PairContainer sortedPairs; 
-        for (typename Container::iterator it = mainChain.begin(); it != mainChain.end(); ++it)
+        Container sortedPend;
+        for (size_t i = 0; i < mainChain.size(); ++i)
         {
-            for (typename PairContainer::iterator pit = pairs.begin(); pit != pairs.end(); ++pit)
+            for (size_t j = 0; j < originalMain.size(); ++j)
             {
-                if (pit->first == *it)
+                if (mainChain[i] == originalMain[j])
                 {
-                    sortedPairs.push_back(*pit);
-                    pairs.erase(pit);
+                    sortedPend.push_back(pend[j]);
+                    originalMain[j] = -1;
                     break;
                 }
             }
         }
-        pairs = sortedPairs;
 
         Container S;
-        S.push_back(pairs[0].second);
-        for (size_t i = 0; i < pairs.size(); ++i)
+        S.push_back(sortedPend[0]);
+        for (size_t i = 0; i < mainChain.size(); ++i)
         {
-            S.push_back(pairs[i].first);
+            S.push_back(mainChain[i]);
         }
 
         size_t lastJacob = 1;
         size_t jacobIndex = 3;
-        size_t P = pairs.size();
+        size_t P = sortedPend.size();
 
         while (lastJacob < P)
         {
@@ -107,8 +92,8 @@ public:
 
             for (size_t i = target; i > lastJacob; --i)
             {
-                int elementToInsert = pairs[i - 1].second;
-                int correspondingMax = pairs[i - 1].first;
+                int elementToInsert = sortedPend[i - 1];
+                int correspondingMax = mainChain[i - 1];
 
                 typename Container::iterator bound = std::lower_bound(S.begin(), S.end(), correspondingMax);
                 typename Container::iterator pos = std::lower_bound(S.begin(), bound, elementToInsert);
