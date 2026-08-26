@@ -24,9 +24,6 @@ PmergeMe::~PmergeMe()
 
 size_t PmergeMe::getJacobsthal(size_t n)
 {
-    if (n == 0) return 0;
-    if (n == 1) return 1;
-    
     size_t prev2 = 0;
     size_t prev1 = 1;
     size_t curr = 0;

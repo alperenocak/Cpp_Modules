@@ -1,0 +1,5 @@
+{
+  "summary": "Ford-Johnson (Merge-Insertion Sort) algoritmasının [3,1,4,1,5,9,2,6,5] giriş dizisi üzerinde tam adım adım izi. Her rekürsif seviyede (LEVEL 0-3) tüm değişkenlerin (mainChain, pend, originalMain, sortedPend, S) aldığı değerler, çift gruplama tabloları, Jacobsthal tabanlı ekleme adımları ve straggler işlemi detaylı olarak gösterilmektedir.",
+  "updatedAt": "2026-08-26T10:18:22.141430307Z",
+  "userFacing": true
+}
