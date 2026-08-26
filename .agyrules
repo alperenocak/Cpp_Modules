@@ -13,3 +13,18 @@
 3. **İletişim:**
    - Kullanıcıyla Türkçe ve anlaşılır, pedagojik bir dille iletişim kur.
    - Kod değişikliklerini yapmadan önce mantığını ve rationale'ini açıkla.
+
+4. **Aktif Çalışma Bağlamı:**
+   - Şu an `cpp09/ex02` — **PmergeMe** projesi üzerinde çalışılıyor.
+   - Algoritma: **Ford-Johnson (Merge-Insertion Sort)** — `std::vector` ve `std::deque` ile implement edildi.
+   - İlgili dosyalar: `cpp09/ex02/PmergeMe.hpp`, `cpp09/ex02/PmergeMe.cpp`
+   - Algoritmanın tüm detaylı iz (trace) dosyası `notes/ford_johnson_trace.md` içinde mevcut.
+   - Algoritmanın derin analizi `notes/pmergeme_deep_dive.md` içinde mevcut.
+   - Öğrenilen temel kavramlar:
+     * Her rekürsif seviyede `mainChain`, `pend`, `originalMain`, `sortedPend`, `S` değişkenleri kullanılır.
+     * `originalMain` = rekürsif çağrıdan önce alınan `mainChain` kopyası; rekürsiyon sonrası `mainChain` sıralanır ama `originalMain` sırasız kalır. `pend` hizalaması için kritiktir.
+     * `S` container'ı = sıralı ana zincir; `mainChain`'den bağımsız tutulur ki `bound` hesabı bozulmasın.
+     * Jacobsthal dizisi (0,1,1,3,5,11,21...) → `J(n) = J(n-1) + 2*J(n-2)` — ekleme sırasını belirler.
+     * `jacobIndex` her zaman 3'ten başlar; dolayısıyla `getJacobsthal(0)` ve `getJacobsthal(1)` dead code'dur.
+     * `lower_bound` iki kez kullanılır: önce `bound` (correspondingMax ile üst sınır), sonra `pos` (gerçek ekleme yeri).
+   - Repo yeniden düzenlendi: `notes/`, `playground/`, `scripts/` klasörleri oluşturuldu.
